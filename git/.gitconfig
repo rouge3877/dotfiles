@@ -1,3 +1,9 @@
 [user]
-	name = rouge
+	name = Rouge Lin
 	email = rouge_3877@outlook.com
+[init]
+	defaultBranch = main
+[core]
+	editor = vim
+[color]
+	ui = true

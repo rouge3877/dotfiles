@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/rouge/Downloads/dandelion-release/dandelion/src/render'
+let g:netrw_dirhist_3='/home/rouge/Code/Computer-Graphics/dandelion/src/render'
+let g:netrw_dirhist_2='/home/rouge/Code/OSTEP/ostep-homework/cpu-api'
+let g:netrw_dirhist_1='/home/rouge/Code/Computer-Graphics/optimizer'
