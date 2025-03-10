@@ -17,7 +17,6 @@ fetch-plug() {
     if [ ! -d $PlugDir ]; then
         mkdir -p $PlugDir
     fi
-
     # Fetch plug from github with depth=1 (only the latest commit, for speed)
     git clone --depth=1 https://github.com/ctrlpvim/ctrlp.vim.git $PlugDir/ctrlp.vim
 
