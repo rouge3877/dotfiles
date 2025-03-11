@@ -39,51 +39,17 @@ _tmux_install_plug() {
 
 }
 
-_tmux_backup() {
-    # backup the existing tmux directory
-    # check if backup directory exists
-    echo "Backing up existing Vim configuration..."
+_tmux_backup_and_make_symlinks() {
+    echo "Backing up existing tmux configuration..."
+    _backup_existing "$HOME/.tmux.conf" "$TMUX_BACKUP_DIR"
+    _backup_existing "$HOME/.tmux" "$TMUX_BACKUP_DIR"
 
-    if [ ! -d $TMUX_BACKUP_DIR ]; then
-        mkdir -p $TMUX_BACKUP_DIR
-        echo "Created backup directory at $TMUX_BACKUP_DIR"
-    fi
-
-    # if .tmux as a symlink, remove it
-    if [ -L $HOME/.tmux ]; then
-        rm $HOME/.tmux
-        echo "Removed existing symlink for .tmux directory"
-    fi
-    # if .tmux.conf as a symlink, remove it
-    if [ -L $HOME/.tmux.conf ]; then
-        rm $HOME/.tmux.conf
-        echo "Removed existing symlink for .tmux.conf"
-    fi
-
-    # check if .tmux directory exists (mv with timestamp)
-    if [ -d $HOME/.tmux ]; then
-        # rm -rf $HOME/.tmux
-        mv $HOME/.tmux $TMUX_BACKUP_DIR/tmux$(date +%Y%m%d%H%M%S)
-        echo "Moved .tmux directory to $TMUX_BACKUP_DIR/tmux$(date +%Y%m%d%H%M%S)"
-    fi
-    # check if .tmux.conf exists
-    if [ -f $HOME/.tmux.conf ]; then
-        # rm -rf $HOME/.tmux.conf
-        mv $HOME/.tmux.conf $TMUX_BACKUP_DIR/.tmux.conf$(date +%Y%m%d%H%M%S)
-        echo "Moved .tmux.conf to $TMUX_BACKUP_DIR/.tmux.conf$(date +%Y%m%d%H%M%S)"
-    fi
-}
-
-_tmux_make_symlinks() {
     # create symlinks
-    ln -s $DOTFILES/tmux $HOME/.tmux
-    echo "Created symlink: $HOME/.tmux -> $DOTFILES/tmux"
-    ln -s $DOTFILES/tmux.conf $HOME/.tmux.conf
-    echo "Created symlink: $HOME/.tmux.conf -> $DOTFILES/tmux.conf"
+    _create_symlink "$DOTFILES/tmux.conf" "$HOME/.tmux.conf"
+    _create_symlink "$DOTFILES/tmux" "$HOME/.tmux"
 }
 
 tmux_install() {
     _tmux_install_plug
-    _tmux_backup
-    _tmux_make_symlinks
+    _tmux_backup_and_make_symlinks
 }

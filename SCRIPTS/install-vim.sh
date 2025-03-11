@@ -12,11 +12,11 @@ VIM_PLUGINS_LIST=(
 
 )
 
-VIM_PLUGINS_DIR=$DOTFILES/vim/pack
 VIM_BACKUP_DIR=$DOTFILES_BACKUP/vim
 
-
 _vim_install_plug() {
+
+    VIM_PLUGINS_DIR=$DOTFILES/vim/pack
 
     if [ ! -d $VIM_PLUGINS_DIR ]; then
         mkdir -p $VIM_PLUGINS_DIR
@@ -43,49 +43,19 @@ _vim_install_plug() {
 
 }
 
-_vim_backup() {
+_vim_backup_and_make_symlinks() {
     # backup the existing vim directory
-    # check if backup directory exists
     echo "Backing up existing Vim configuration..."
+    _backup_existing "$HOME/.vim" "$VIM_BACKUP_DIR"
+    _backup_existing "$HOME/.vimrc" "$VIM_BACKUP_DIR"    
 
-    if [ ! -d $VIM_BACKUP_DIR ]; then
-        mkdir -p $VIM_BACKUP_DIR
-        echo "Created backup directory at $VIM_BACKUP_DIR"
-    fi
-
-    # if .vim as a symlink, remove it
-    if [ -L $HOME/.vim ]; then
-        rm $HOME/.vim
-        echo "Removed existing symlink for .vim directory"
-    fi
-    # if .vimrc as a symlink, remove it
-    if [ -L $HOME/.vimrc ]; then
-        rm $HOME/.vimrc
-        echo "Removed existing symlink for .vimrc"
-    fi
-
-    # check if .vim directory exists (mv with timestamp)
-    if [ -d $HOME/.vim ]; then
-        rm -rf $HOME/.vim
-        echo "Moved .vim directory to $VIM_BACKUP_DIR/vim$(date +%Y%m%d%H%M%S)"
-    fi
-    # check if .vimrc exists
-    if [ -f $HOME/.vimrc ]; then
-        rm -rf $HOME/.vimrc
-        echo "Moved .vimrc to $VIM_BACKUP_DIR/.vimrc$(date +%Y%m%d%H%M%S)"
-    fi
-}
-
-_vim_make_symlinks() {
     # create symlinks
-    ln -s $DOTFILES/vim $HOME/.vim
-    echo "Created symlink: $HOME/.vim -> $DOTFILES/vim"
-    ln -s $DOTFILES/vimrc $HOME/.vimrc
-    echo "Created symlink: $HOME/.vimrc -> $DOTFILES/vimrc"
+    _create_symlink "$DOTFILES/vim" "$HOME/.vim"
+    _create_symlink "$DOTFILES/vimrc" "$HOME/.vimrc"
 }
+
 
 vim_install() {
     _vim_install_plug
-    _vim_backup
-    _vim_make_symlinks
+    _vim_backup_and_make_symlinks
 }
