@@ -7,12 +7,19 @@
 #  - Symlink the dotfiles
 
 # Set basic variables
+echo "Preparing to install dotfiles..."
 DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOTFILES_SCRIPTS="$DOTFILES/SCRIPTS"
 echo "Dotfiles directory: $DOTFILES"
 
-DOTFILES_SCRIPTS="$DOTFILES/SCRIPTS"
 
 # Install the dependencies
 echo "Installing dependencies..."
-source $DOTFILES_SCRIPTS/dependencies.list.sh
 source $DOTFILES_SCRIPTS/dependencies.sh
+
+# Symlink the dotfiles
+echo "Symlinking dotfiles..."
+source $DOTFILES_SCRIPTS/symlink.sh
+
+echo "Done!"
+echo "Please restart your terminal to see the changes"
