@@ -1,2 +1,4 @@
 .backup/
 vim/pack/
+ssh/
+!ssh/config
