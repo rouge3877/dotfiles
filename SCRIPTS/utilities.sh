@@ -27,7 +27,7 @@ _backup_existing() {
 
     # 生成带时间戳的备份文件名
     local backup_name
-    backup_name="$(basename "$target_path")_$(date +%Y%m%d%H%M%S)"
+    backup_name="$(basename "$target_path")"
     
     # 移动原始文件/目录到备份目录
     if [ -d "$target_path" ] || [ -f "$target_path" ]; then
