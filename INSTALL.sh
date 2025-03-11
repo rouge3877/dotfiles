@@ -25,16 +25,15 @@ echo "Installing dependencies..."
 # 3. Symlink the dotfiles
 
 set_list=(
-    # vim
-    # tmux
-    # zsh
-    # git
-    # ssh
+    zsh
+    vim
+    tmux
+    ssh
     git
 )
 
 echo "=== Symlinking dotfiles ==="
-for type in "${set_list}"; do
+for type in "${set_list[@]}"; do
     echo "Symlinking $type..."
     source $DOTFILES_SCRIPTS/install-$type.sh
     ${type}_install
