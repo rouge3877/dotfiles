@@ -6,24 +6,42 @@
 #  - Install the dependencies
 #  - Symlink the dotfiles
 
-# Set basic variables
+# 1. Set basic variables
 echo "Preparing to install dotfiles..."
 DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DOTFILES_SCRIPTS="$DOTFILES/SCRIPTS"
-DOTFILES_BACKUP="$DOTFILES/.backup"
 echo "Dotfiles directory: $DOTFILES"
+source $DOTFILES_SCRIPTS/utilities.sh
+
+# everytime, create a backup folder with timestamp
+mkdir -p $DOTFILES/.backup/$(date +%Y%m%d%H%M%S)
+DOTFILES_BACKUP=$DOTFILES/.backup/$(date +%Y%m%d%H%M%S)
 
 
-# Install the dependencies
+# 2. Install the dependencies
 echo "Installing dependencies..."
 # source $DOTFILES_SCRIPTS/dependencies.sh
 
-# Symlink the dotfiles
-echo "Symlinking dotfiles..."
-source $DOTFILES_SCRIPTS/install-vim.sh
-vim_install
-source $DOTFILES_SCRIPTS/install-tmux.sh
-tmux_install
+# 3. Symlink the dotfiles
+
+set_list=(
+    # vim
+    # tmux
+    # zsh
+    # git
+    # ssh
+    git
+)
+
+echo "=== Symlinking dotfiles ==="
+for type in "${set_list}"; do
+    echo "Symlinking $type..."
+    source $DOTFILES_SCRIPTS/install-$type.sh
+    ${type}_install
+done
+
+
 
 echo "Done!"
-echo "Please restart your terminal to see the changes"
+echo "All the old dotfiles are backed up in $DOTFILES_BACKUP"
+echo "Have fun with your new dotfiles!"
