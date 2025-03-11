@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
 # 颜色定义
 RED='\033[0;31m'
@@ -9,53 +8,67 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # 初始化统计变量
-TOTAL_PACKAGES=0
-INSTALLED=0
-SKIPPED=0
-FAILED=0
+declare -i TOTAL_PACKAGES=0
+declare -i INSTALLED=0
+declare -i SKIPPED=0
+declare -i FAILED=0
 
-# 依赖项声明
+# 基础包声明
 declare -A DEPENDENCIES=(
-    ["build"]="gcc gdb make cmake g++ python3 python3-pip nodejs npm"
-    ["libs"]="libjson-c-dev libjsoncpp-dev libcurl4-openssl-dev curl libncurses5-dev"
-    ["tools"]="git vim tmux htop neofetch wget zip unzip fzf trash-cli valgrind strace sudo pandoc"
-    ["docs"]="man-db man-pages tldr"
-    ["network"]="net-tools iputils-ping nmap openssh-server"
-    ["gui"]="wireshark wireshark-qt wireshark-cli code"
-    ["latex"]="texlive-full texlive-lang-*"
-    ["fun"]="cmatrix sl go-music"
+    ["essentials"]="gcc gdb make cmake llvm clang g++"
+    ["python"]="python3 python3-pip python3-venv"
+    ["node"]="nodejs npm"
+    ["libs"]="libjson-c libjsoncpp libcurl openssl ncurses"
+    ["tools"]="git vim tmux htop neofetch wget zip unzip fzf trash-cli stow"
+    ["debug"]="valgrind strace ltrace gdb"
+    ["docs"]="man-db man-pages tldr pandoc"
+    ["network"]="net-tools nmap openssh"
+    ["gui"]="wireshark-qt code"
+    ["latex"]="texlive texlive-lang texlive-core texlive-latexextra texlive-fontsextra texlive-langchinese"
+    ["misc"]="cmatrix sl"
 )
 
-# 不同发行版的包名映射
+# 包名映射表（仅需要特殊处理的包）
 declare -A PKG_MAP=(
-    ["arch:build"]="gcc gdb make cmake g++ python python-pip nodejs npm"
-    ["arch:libs"]="json-c jsoncpp curl ncurses"
-    ["arch:gui"]="wireshark-qt wireshark-cli visual-studio-code-bin"
-    ["arch:network"]="net-tools iputils nmap openssh"
-    ["arch:latex"]="texlive-most texlive-lang-cjk"
-    ["arch:fun"]="cmatrix sl go-music"
-    ["fedora:build"]="gcc gdb make cmake gcc-c++ python3 python3-pip nodejs npm"
-    ["fedora:libs"]="json-c-devel jsoncpp-devel libcurl-devel ncurses-devel"
-    ["fedora:network"]="net-tools iputils nmap openssh-server"
-    ["fedora:latex"]="texlive-scheme-full"
+    # Debian/Ubuntu
+    ["libjson-c:debian"]="libjson-c-dev"
+    ["libjsoncpp:debian"]="libjsoncpp-dev"
+    ["libcurl:debian"]="libcurl4-openssl-dev"
+    ["ncurses:debian"]="libncurses5-dev"
+    ["code:debian"]="code"
+    
+    # Fedora/CentOS
+    ["libjson-c:fedora"]="json-c-devel"
+    ["libjsoncpp:fedora"]="jsoncpp-devel"
+    ["libcurl:fedora"]="libcurl-devel"
+    ["code:fedora"]="code"
+
+    # Arch
+    ["python3:arch"]="python"
+    ["python3-pip:arch"]="python-pip"
+    ["python3-venv:arch"]="python"
+    ["code:arch"]="visual-studio-code-bin"
+    ["libjson-c:arch"]="json-c"
+    ["libjsoncpp:arch"]="jsoncpp"
+    ["libcurl:arch"]="curl"
+    ["ncurses:arch"]="ncurses"
 )
 
-# 系统信息检测
+# 系统检测
 detect_os() {
     if [ -f /etc/os-release ]; then
         . /etc/os-release
         OS_ID="${ID:-unknown}"
         OS_LIKE="${ID_LIKE:-}"
-        VERSION_ID="${VERSION_ID:-}"
     else
-        echo -e "${RED}Failed to detect OS${NC}"
+        echo -e "${RED}Cannot detect OS${NC}"
         exit 1
     fi
 
     case "$OS_ID" in
-        debian|ubuntu|pop|linuxmint) OS="debian" ;;
-        fedora|centos|rhel|ol) OS="fedora" ;;
-        arch|manjaro|endeavouros) OS="arch" ;;
+        debian|ubuntu) OS="debian" ;;
+        fedora|centos) OS="fedora" ;;
+        arch|manjaro) OS="arch" ;;
         *) echo -e "${RED}Unsupported OS: $OS_ID${NC}"; exit 1 ;;
     esac
 }
@@ -64,25 +77,25 @@ detect_os() {
 check_permissions() {
     if [ "$(id -u)" -ne 0 ]; then
         if command -v sudo &>/dev/null; then
-            echo -e "${YELLOW}Re-running script with sudo...${NC}"
+            echo -e "${YELLOW}Proceeding with sudo...${NC}"
             exec sudo "$0" "$@"
         else
-            echo -e "${RED}Root privileges required but sudo not available${NC}"
+            echo -e "${RED}Root permissions required${NC}"
             exit 1
         fi
     fi
 }
 
-# 包管理器命令
+# 包管理器初始化
 init_pkg_manager() {
     case "$OS" in
         debian)
             UPDATE_CMD="apt-get update -qq"
-            INSTALL_CMD="apt-get install -yq"
-            PKG_CHECK="dpkg -l"
+            INSTALL_CMD="apt-get install -yq --no-install-recommends"
+            PKG_CHECK="dpkg -s"
             ;;
         fedora)
-            UPDATE_CMD="dnf check-update -q || [ \$? -eq 100 ]"
+            UPDATE_CMD="dnf check-update -q"
             INSTALL_CMD="dnf install -y --skip-broken"
             PKG_CHECK="rpm -q"
             ;;
@@ -94,108 +107,94 @@ init_pkg_manager() {
     esac
 }
 
-# 安装预处理
+# 预处理
 pre_install() {
-    # 更新包数据库
-    echo -e "${BLUE}Updating package database...${NC}"
-    eval "$UPDATE_CMD" || {
-        echo -e "${YELLOW}Package database update failed, attempting to continue...${NC}"
-    }
+    echo -e "${BLUE}Updating package index...${NC}"
+    if ! eval "$UPDATE_CMD"; then
+        echo -e "${YELLOW}Failed to update package index${NC}"
+        exit 1
+    fi
 
-    # 为Arch系统添加第三方仓库
     if [ "$OS" = "arch" ]; then
-        # 添加archlinuxcn仓库
         if ! grep -q '^\[archlinuxcn\]' /etc/pacman.conf; then
-            echo -e "${BLUE}Adding archlinuxcn repository...${NC}"
+            echo -e "${BLUE}Adding Arch Linux CN mirrors...${NC}"
             echo "[archlinuxcn]" >> /etc/pacman.conf
             echo "Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch" >> /etc/pacman.conf
-            # 导入密钥
-            pacman -Sy --noconfirm archlinuxcn-keyring || {
-                echo -e "${RED}Failed to import archlinuxcn keyring${NC}"
-                exit 1
-            }
+            pacman -Sy --noconfirm archlinuxcn-keyring || exit 1
         fi
 
-        # 添加arch4edu仓库
         if ! grep -q '^\[arch4edu\]' /etc/pacman.conf; then
-            echo -e "${BLUE}Adding arch4edu repository...${NC}"
+            echo -e "${BLUE}Adding Arch 4 Edu mirrors...${NC}"
             echo "[arch4edu]" >> /etc/pacman.conf
-            echo "Server = https://mirrors.ustc.edu.cn/arch4edu/\$arch" >> /etc/pacman.conf
-            # 导入密钥
-            pacman -Sy --noconfirm arch4edu-keyring || {
-                echo -e "${RED}Failed to import arch4edu keyring${NC}"
-                exit 1
-            }
+            echo "Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/\$arch" >> /etc/pacman.conf
+            pacman -Sy --noconfirm arch4edu-keyring || exit 1
         fi
-
-        # 更新包数据库
-        pacman -Sy --noconfirm || {
-            echo -e "${YELLOW}Package database update failed, attempting to continue...${NC}"
-        }
     fi
 }
 
-# 包安装函数
-install_packages() {
-    local category=$1
-    local -n packages=$2
+# 包名转换
+map_package() {
+    local pkg=$1
+    local os=$2
 
-    echo -e "\n${BLUE}=== Installing ${category} packages ===${NC}"
+    # 优先检查精确匹配
+    if [ -n "${PKG_MAP["$pkg:$os"]}" ]; then
+        echo "${PKG_MAP["$pkg:$os"]}"
+    elif [ -n "${PKG_MAP["$pkg:$OS_ID"]}" ]; then
+        echo "${PKG_MAP["$pkg:$OS_ID"]}"
+    else
+        echo "$pkg"
+    fi
+}
+
+# 安装单个包
+install_single_pkg() {
+    local raw_pkg=$1
+    local pkg=$(map_package "$raw_pkg" "$OS")
+
+    ((TOTAL_PACKAGES++))
     
-    for pkg in ${packages}; do
-        ((TOTAL_PACKAGES++))
-        local pkg_name
-        
-        # 获取系统特定包名
-        if [ -n "${PKG_MAP["$OS:$category"]+x}" ]; then
-            pkg_name="${PKG_MAP["$OS:$category"]}"
-        elif [ -n "${PKG_MAP["$OS_ID:$category"]+x}" ]; then
-            pkg_name="${PKG_MAP["$OS_ID:$category"]}"
-        else
-            pkg_name="$pkg"
-        fi
+    if eval "$PKG_CHECK $pkg" &>/dev/null; then
+        echo -e "  ${GREEN}[*] $raw_pkg${NC} (Installed)"
+        ((SKIPPED++))
+        return 0
+    fi
 
-        # 检查是否已安装
-        if eval "$PKG_CHECK $pkg_name" &>/dev/null; then
-            echo -e "  ${GREEN}[✓] $pkg_name${NC} (already installed)"
-            ((SKIPPED++))
-            continue
-        fi
-
-        # 执行安装
-        echo -e "  ${YELLOW}[ ] Installing $pkg_name...${NC}"
-        if eval "$INSTALL_CMD $pkg_name" &>/dev/null; then
-            echo -e "\r  ${GREEN}[✓] $pkg_name${NC}"
-            ((INSTALLED++))
-        else
-            echo -e "\r  ${RED}[✗] $pkg_name${NC}"
-            ((FAILED++))
-        fi
-    done
+    echo -e "  ${YELLOW}[ ] Installing $raw_pkg...${NC}"
+    if eval "$INSTALL_CMD $pkg" &>/dev/null; then
+        echo -e "\r  ${GREEN}[*] $raw_pkg${NC}"
+        ((INSTALLED++))
+        return 0
+    else
+        echo -e "\r  ${RED}[x] $raw_pkg${NC}"
+        ((FAILED++))
+        return 1
+    fi
 }
 
 # 主安装流程
-main() {
+main_install() {
     detect_os
     check_permissions "$@"
     init_pkg_manager
     pre_install
 
-    # 安装所有分类的包
+    echo -e "${BLUE}Beginning installation...${NC}"
     for category in "${!DEPENDENCIES[@]}"; do
-        install_packages "$category" DEPENDENCIES["$category"]
+        echo -e "\n${BLUE}=== Installing $category ===${NC}"
+        for pkg in ${DEPENDENCIES[$category]}; do
+            install_single_pkg "$pkg"
+        done
     done
 
-    # 显示统计信息
+    # 显示统计
     echo -e "\n${BLUE}=== Installation Summary ===${NC}"
-    printf "Total packages:    %3d\n" "$TOTAL_PACKAGES"
-    printf "${GREEN}Successfully installed: %3d${NC}\n" "$INSTALLED"
-    printf "${YELLOW}Skipped (existing):   %3d${NC}\n" "$SKIPPED"
-    printf "${RED}Failed installations: %3d${NC}\n" "$FAILED"
+    printf "${BLUE}Total packages: %3d${NC}\n" $TOTAL_PACKAGES
+    printf "${GREEN}Successfully installed: %3d${NC}\n" $INSTALLED
+    printf "${YELLOW}Skipped:              %3d${NC}\n" $SKIPPED
+    printf "${RED}Failed:               %3d${NC}\n" $FAILED
 
-    # 如果有失败则返回非零状态码
     [ $FAILED -gt 0 ] && exit 1 || exit 0
 }
 
-# 执行主函数
-main "$@"
+main_install "$@"
