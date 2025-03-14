@@ -39,6 +39,10 @@ for type in "${set_list[@]}"; do
     ${type}_install
 done
 
+# 4. stow the config/ to ~/.config
+echo "=== Stowing config ==="
+# stow -t $HOME/.config $DOTFILES/config
+
 
 
 echo "Done!"
