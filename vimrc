@@ -90,3 +90,30 @@ inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+
+" =========== about tabs ===========
+" ========== Tab 与空格基础设置 ==========
+set tabstop=4       " 实际显示的 Tab 宽度为 4 列
+set shiftwidth=4    " 自动缩进时使用的宽度为 4 列
+set softtabstop=4   " 按 Tab 键时插入的「虚拟空格」数量为 4
+
+" 默认将 Tab 转换为空格（适用于大多数文件类型）
+set expandtab
+
+" ========== 按文件类型禁用 expandtab（如 Makefile） ==========
+autocmd FileType make setlocal noexpandtab  " Makefile 必须用真实 Tab
+
+" ========== 可视化空白字符 ==========
+set list                      " 启用特殊字符显示
+set listchars=tab:▸\ ,        " Tab 显示为 ▸，后跟一个空格（确保对齐）
+set listchars+=trail:·        " 行尾空格显示为 ·
+set listchars+=space:·        " 行首空格（非缩进）显示为 ·
+set listchars+=nbsp:␣         " 非换行空格显示为 ␣（可选）
+
+" 高亮特殊空白字符的颜色（根据主题调整颜色值）
+highlight SpecialKey ctermfg=DarkGray guifg=#666666
+
+" 高亮行尾空格（不依赖 listchars）
+highlight ExtraWhitespace ctermbg=cyan guibg=#FF0000
+match ExtraWhitespace /\s\+$/ 
