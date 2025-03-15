@@ -9,7 +9,7 @@ VIM_PLUGINS_LIST=(
     "https://github.com/ctrlpvim/ctrlp.vim.git ctrlp.vim plugins"
     "https://github.com/preservim/nerdtree.git nerdtree vendor"
     "https://github.com/github/copilot.vim.git copilot.vim github"
-
+    "https://github.com/roxma/vim-tmux-clipboard.git vim-tmux-clipboard plugins"
 )
 
 VIM_BACKUP_DIR=$DOTFILES_BACKUP/vim
