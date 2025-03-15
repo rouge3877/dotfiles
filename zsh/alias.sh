@@ -6,8 +6,8 @@ alias pdf="google-chrome"
 alias rm='echo "This is not the command you are looking for."; false'
 
 # Open the config file
-alias zshconfig="vim $DOTFILES_ZSH/zshrc"
+alias zshconfig="vim $DOTFILES/zshrc"
 
 # Reload the config file
-alias zshreload="source $DOTFILES_ZSH/zshrc"
+alias zshreload="source $DOTFILES/zshrc"
 
