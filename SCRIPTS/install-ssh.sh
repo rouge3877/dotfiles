@@ -14,7 +14,7 @@ _ssh_backup_and_make_symlinks() {
     fi
 
     echo "Backing up existing ssh configuration..."
-    _backup_existing "$HOME/.ssh/config" "$SSH_BACKUP_DIR/config"
+    _backup_existing "$HOME/.ssh/config" "$SSH_BACKUP_DIR/.ssh"
 
     # create symlinks
     _create_symlink "$DOTFILES/ssh/config" "$HOME/.ssh/config"
