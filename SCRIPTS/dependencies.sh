@@ -36,7 +36,7 @@ declare -A PKG_MAP=(
     ["libcurl:debian"]="libcurl4-openssl-dev"
     ["ncurses:debian"]="libncurses5-dev"
     ["code:debian"]="code"
-    
+
     # Fedora/CentOS
     ["libjson-c:fedora"]="json-c-devel"
     ["libjsoncpp:fedora"]="jsoncpp-devel"
@@ -48,7 +48,7 @@ declare -A PKG_MAP=(
     ["python3-pip:arch"]="python-pip"
     ["python3-venv:arch"]="python"
     ["code:arch"]="visual-studio-code-bin"
-    ["libjson-c:arch"]="json-c"
+    ["libjson-c:arch"]="c-json"
     ["libjsoncpp:arch"]="jsoncpp"
     ["libcurl:arch"]="curl"
     ["ncurses:arch"]="ncurses"
