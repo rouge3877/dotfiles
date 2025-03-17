@@ -58,7 +58,7 @@ get_mac_address() {
 
 # Get the OS name
 get_os_name() {
-    local os=$(cat /etc/os-release | awk -F= '/^NAME/ {print $2}' | tr -d '"')
+    local os=$(cat /etc/os-release | awk -F= '/^NAME/ {print $2}' | tr -d '"' | awk '{print $1}')
     echo $os
 }
 
