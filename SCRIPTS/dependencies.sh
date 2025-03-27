@@ -26,6 +26,7 @@ declare -A DEPENDENCIES=(
     ["gui"]="wireshark-qt code"
     ["latex"]="texlive texlive-lang texlive-core texlive-latexextra texlive-fontsextra texlive-langchinese"
     ["misc"]="cmatrix sl"
+    ["markdown"]="glow md-tui"
 )
 
 # 包名映射表（仅需要特殊处理的包）
