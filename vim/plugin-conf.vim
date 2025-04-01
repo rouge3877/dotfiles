@@ -29,10 +29,31 @@ let g:ctrlp_custom_ignore = {
 "============== NERDTree =============
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['\.pyc$', '\~$']
+let g:NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$', '\.git$', '\.hg$', '\.svn$']
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeShowLineNumbers = 1
 let g:NERDTreeShowGitStatus = 1
+let g:NERDTreeFileLines = 1
+
+nnoremap <leader>n :NERDTreeFocus<CR> "leader default is '\'
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+
+
+
+
+
+
 
 "============== papercolor =============
 " Set the colorscheme to papercolor

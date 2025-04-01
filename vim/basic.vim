@@ -26,6 +26,7 @@ set number
 set relativenumber
 set nowrap " Don't wrap lines
 set cursorline " Highlight the current line
+set cursorcolumn " Highlight the current column
 set signcolumn=yes " Always show the sign column, otherwise it would shift the text each time.
 set scrolloff=8 " Always show x lines above/below the cursor
 
@@ -33,13 +34,10 @@ set scrolloff=8 " Always show x lines above/below the cursor
 "================= Status Line and under =================
 " Set the status line to always show the filename
 set statusline=%F
-
 " Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
-
 " Show cursor position in the lower right corner of the screen
 set ruler
-
 " Show command as it's being entered in console.
 set showcmd
 
