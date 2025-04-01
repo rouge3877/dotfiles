@@ -1,4 +1,6 @@
 .backup/
 vim/pack/
+vim/plugged/
+vim/autoload/
 ssh/*
 !ssh/config
