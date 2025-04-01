@@ -15,7 +15,7 @@ declare -i FAILED=0
 
 # 基础包声明
 declare -A DEPENDENCIES=(
-    ["essentials"]="gcc gdb make cmake llvm clang g++"
+    ["essentials"]="gcc gdb make cmake llvm clang g++ ctags"
     ["python"]="python3 python3-pip python3-venv"
     ["node"]="nodejs npm"
     ["libs"]="libjson-c libjsoncpp libcurl openssl ncurses"

@@ -12,6 +12,7 @@ source $DOTFILES_VIM/status-line.vim
 
 " ==== 2. Load plugins ====
 source $DOTFILES_VIM/plugin.vim
+source $DOTFILES_VIM/plugin-conf.vim
 
 " ==== 3. Load color ====
 set background=dark
