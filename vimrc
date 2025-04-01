@@ -8,7 +8,6 @@ endif
 " ==== 1. Load basic.vim ====
 source $DOTFILES_VIM/basic.vim
 source $DOTFILES_VIM/autoclose.vim
-source $DOTFILES_VIM/status-line.vim
 
 " ==== 2. Load plugins ====
 source $DOTFILES_VIM/plugin.vim
