@@ -8,17 +8,9 @@ else
 fi
 
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-
-########### This is the place for you to set some Vars ###########
-
-# Environment of NJU-OS and ysyx.oscc.cc
-export NEMU_HOME=/home/rouge/Code/ysyx.oscc.oc/ysyx-workbench/nemu
-export AM_HOME=/home/rouge/Code/ysyx.oscc.oc/ysyx-workbench/abstract-machine
-
-
-#################################################################
-
-
+# Check if the .zshenv file exists
+if [ -f ~/.zshenv ]; then
+  # Source the .zshenv file
+else
+  echo "no ~/.zshenv"
+fi
