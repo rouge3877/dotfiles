@@ -1,77 +1,15 @@
 "-- AUTOCLOSE NATIVE CONFIG
-      "autoclose and position cursor to write text inside
-inoremap ' ''<left>
-inoremap ` ``<left>
-inoremap " ""<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-      "autoclose with ; and position cursor to write text inside
-inoremap '; '';<left><left>
-inoremap `; ``;<left><left>
-inoremap "; "";<left><left>
-inoremap (; ();<left><left>
-inoremap [; [];<left><left>
-inoremap {; {};<left><left>
-      "autoclose with , and position cursor to write text inside
-inoremap ', '',<left><left>
-inoremap `, ``,<left><left>
-inoremap ", "",<left><left>
-inoremap (, (),<left><left>
-inoremap [, [],<left><left>
-inoremap {, {},<left><left>
-      "autoclose and position cursor after
-inoremap '<tab> ''
-inoremap `<tab> ``
-inoremap "<tab> ""
-inoremap (<tab> ()
-inoremap [<tab> []
-inoremap {<tab> {}
-      "autoclose with ; and position cursor after
-inoremap ';<tab> '';
-inoremap `;<tab> ``;
-inoremap ";<tab> "";
-inoremap (;<tab> ();
-inoremap [;<tab> [];
-inoremap {;<tab> {};
-      "autoclose with , and position cursor after
-inoremap ',<tab> '',
-inoremap `,<tab> ``,
-inoremap ",<tab> "",
-inoremap (,<tab> (),
-inoremap [,<tab> [],
-inoremap {,<tab> {},
-      "autoclose 2 lines below and position cursor in the middle
-inoremap '<CR> '<CR>'<ESC>O
-inoremap `<CR> `<CR>`<ESC>O
-inoremap "<CR> "<CR>"<ESC>O
-inoremap (<CR> (<CR>)<ESC>O
-inoremap [<CR> [<CR>]<ESC>O
-inoremap {<CR> {<CR>}<ESC>O
-      "autoclose 2 lines below adding ; and position cursor in the middle
-inoremap ';<CR> '<CR>';<ESC>O
-inoremap `;<CR> `<CR>`;<ESC>O
-inoremap ";<CR> "<CR>";<ESC>O
-inoremap (;<CR> (<CR>);<ESC>O
-inoremap [;<CR> [<CR>];<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-      "autoclose 2 lines below adding , and position cursor in the middle
-inoremap ',<CR> '<CR>',<ESC>O
-inoremap `,<CR> `<CR>`,<ESC>O
-inoremap ",<CR> "<CR>",<ESC>O
-inoremap (,<CR> (<CR>),<ESC>O
-inoremap [,<CR> [<CR>],<ESC>O
-inoremap {,<CR> {<CR>},<ESC>O
-
-" smart close
-inoremap <expr> )  CheckRightCharacter(')')
-inoremap <expr> ]  CheckRightCharacter(']')
-inoremap <expr> }  CheckRightCharacter('}')
-inoremap <expr> '  CheckRightCharacter("'")
-inoremap <expr> "  CheckRightCharacter('"')
-inoremap <expr> `  CheckRightCharacter('`')
+function! CheckComment()
+    let line = getline('.')
+    let stripped_line = substitute(line, '^\s*', '', '')
+    return stripped_line =~# '^"'
+endfunction
 
 function! CheckRightCharacter(char)
+    if CheckComment()
+        return a:char
+    endif
+
     let l:line = getline('.')
     let l:col = col('.') - 1
 
@@ -86,3 +24,82 @@ function! CheckRightCharacter(char)
     return l:line[l:col] == a:char ? "\<Right>" : a:char
 endfunction
 
+" Basic autoclose with cursor inside
+inoremap <expr> ' CheckComment() ? "'" : "''\<Left>"
+inoremap <expr> ` CheckComment() ? "`" : "``\<Left>"
+inoremap <expr> " CheckComment() ? "\"" : "\"\"\<Left>"
+inoremap <expr> ( CheckComment() ? "(" : "()\<Left>"
+inoremap <expr> [ CheckComment() ? "[" : "[]\<Left>"
+inoremap <expr> { CheckComment() ? "{" : "{}\<Left>"
+
+" Autoclose with ; and position cursor
+inoremap <expr> '; CheckComment() ? ';' : "'';\<Left>\<Left>"
+inoremap <expr> `; CheckComment() ? ';' : "``;\<Left>\<Left>"
+inoremap <expr> "; CheckComment() ? ';' : "\"\"\<Left>\<Left>"
+inoremap <expr> (; CheckComment() ? ';' : "();\<Left>\<Left>"
+inoremap <expr> [; CheckComment() ? ';' : "[];\<Left>\<Left>"
+inoremap <expr> {; CheckComment() ? ';' : "{};\<Left>\<Left>"
+
+" Autoclose with , and position cursor
+inoremap <expr> ', CheckComment() ? ',' : "'',\<Left>\<Left>"
+inoremap <expr> `, CheckComment() ? ',' : "``,\<Left>\<Left>"
+inoremap <expr> ", CheckComment() ? ',' : "\"\",\<Left>\<Left>"
+inoremap <expr> (, CheckComment() ? ',' : "(),\<Left>\<Left>"
+inoremap <expr> [, CheckComment() ? ',' : "[],\<Left>\<Left>"
+inoremap <expr> {, CheckComment() ? ',' : "{},\<Left>\<Left>"
+
+" Autoclose and position after
+inoremap <expr> '<tab> CheckComment() ? "'\<Tab>" : "''"
+inoremap <expr> `<tab> CheckComment() ? "`\<Tab>" : "``"
+inoremap <expr> "<tab> CheckComment() ? "\"\<Tab>" : "\"\""
+inoremap <expr> (<tab> CheckComment() ? "(\<Tab>" : "()"
+inoremap <expr> [<tab> CheckComment() ? "[\<Tab>" : "[]"
+inoremap <expr> {<tab> CheckComment() ? "{\<Tab>" : "{}"
+
+" Autoclose with ; and position after
+inoremap <expr> ';<tab> CheckComment() ? "';\<Tab>" : "'';"
+inoremap <expr> `;<tab> CheckComment() ? "`;\<Tab>" : "``;"
+inoremap <expr> ";<tab> CheckComment() ? "\";\<Tab>" : "\"\";"
+inoremap <expr> (;<tab> CheckComment() ? "(;\<Tab>" : "();"
+inoremap <expr> [;<tab> CheckComment() ? "[;\<Tab>" : "[];"
+inoremap <expr> {;<tab> CheckComment() ? "{;\<Tab>" : "{};"
+
+" Autoclose with , and position after
+inoremap <expr> ',<tab> CheckComment() ? "',\<Tab>" : "'',"
+inoremap <expr> `,<tab> CheckComment() ? "`,\<Tab>" : "``,"
+inoremap <expr> ",<tab> CheckComment() ? "\",\<Tab>" : "\"\","
+inoremap <expr> (,<tab> CheckComment() ? "(,\<Tab>" : "(),"
+inoremap <expr> [,<tab> CheckComment() ? "[,\<Tab>" : "[],"
+inoremap <expr> {,<tab> CheckComment() ? "{,\<Tab>" : "{},"
+
+" Multiline autoclose
+inoremap <expr> '<CR> CheckComment() ? "'\<CR>" : "'\<CR>'\<Esc>O"
+inoremap <expr> `<CR> CheckComment() ? "`\<CR>" : "`\<CR>`\<Esc>O"
+inoremap <expr> "<CR> CheckComment() ? "\"\<CR>" : "\"\<CR>\"\<Esc>O"
+inoremap <expr> (<CR> CheckComment() ? "(\<CR>" : "(\<CR>)\<Esc>O"
+inoremap <expr> [<CR> CheckComment() ? "[\<CR>" : "[\<CR>]\<Esc>O"
+inoremap <expr> {<CR> CheckComment() ? "{\<CR>" : "{\<CR>}\<Esc>O"
+
+" Multiline with ; suffix
+inoremap <expr> ';<CR> CheckComment() ? "';\<CR>" : "'\<CR>';\<Esc>O"
+inoremap <expr> `;<CR> CheckComment() ? "`;\<CR>" : "`\<CR>`;\<Esc>O"
+inoremap <expr> ";<CR> CheckComment() ? "\";\<CR>" : "\"\<CR>\";\<Esc>O"
+inoremap <expr> (;<CR> CheckComment() ? "(;\<CR>" : "(\<CR>);\<Esc>O"
+inoremap <expr> [;<CR> CheckComment() ? "[;\<CR>" : "[\<CR>];\<Esc>O"
+inoremap <expr> {;<CR> CheckComment() ? "{;\<CR>" : "{\<CR>};\<Esc>O"
+
+" Multiline with , suffix
+inoremap <expr> ',<CR> CheckComment() ? "',\<CR>" : "'\<CR>',\<Esc>O"
+inoremap <expr> `,<CR> CheckComment() ? "`,\<CR>" : "`\<CR>`,\<Esc>O"
+inoremap <expr> ",<CR> CheckComment() ? "\",\<CR>" : "\"\<CR>\",\<Esc>O"
+inoremap <expr> (,<CR> CheckComment() ? "(,\<CR>" : "(\<CR>),\<Esc>O"
+inoremap <expr> [,<CR> CheckComment() ? "[,\<CR>" : "[\<CR>],\<Esc>O"
+inoremap <expr> {,<CR> CheckComment() ? "{,\<CR>" : "{\<CR>},\<Esc>O"
+
+" Smart close mappings
+inoremap <expr> )  CheckRightCharacter(')')
+inoremap <expr> ]  CheckRightCharacter(']')
+inoremap <expr> }  CheckRightCharacter('}')
+inoremap <expr> '  CheckRightCharacter("'")
+inoremap <expr> "  CheckRightCharacter('"')
+inoremap <expr> `  CheckRightCharacter('`')

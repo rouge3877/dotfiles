@@ -26,6 +26,7 @@ Plug 'tpope/vim-commentary' " Comment stuff out
 Plug 'tpope/vim-surround' " Surround text with quotes, parens, etc
 Plug 'mhinz/vim-signify'
 
+Plug 'sheerun/vim-polyglot'
 
 Plug 'preservim/tagbar' " Displays tags in a window, ordered by class/function
 
