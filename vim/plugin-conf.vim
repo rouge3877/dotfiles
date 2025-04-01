@@ -50,14 +50,11 @@ autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silen
 
 
 
-
-
-
-
-
-"============== papercolor =============
-" Set the colorscheme to papercolor
+"============== theme =============
 set background=dark
+" Set the colorscheme to papercolor
+" We prepend it with 'silent!' to ignore errors when it's not yet installed.
+silent! colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default': {

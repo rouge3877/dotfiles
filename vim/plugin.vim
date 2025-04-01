@@ -4,7 +4,6 @@
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
@@ -41,11 +40,3 @@ call plug#end()
 " You can revert the settings after the call like so:
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
-
-" Color schemes should be loaded after plug#end().
-" We prepend it with 'silent!' to ignore errors when it's not yet installed.
-silent! colorscheme seoul256
-
-" default updatetime 4000ms is not good for async update
-set updatetime=100
-
