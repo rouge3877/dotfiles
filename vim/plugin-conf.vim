@@ -53,6 +53,7 @@ set background=dark
 " Set the colorscheme to papercolor
 " We prepend it with 'silent!' to ignore errors when it's not yet installed.
 silent! colorscheme PaperColor
+
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default': {
@@ -63,13 +64,39 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 
-"============== air-line ============
+"============== air-line and theme =============
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_theme = 'papercolor'
 
 
 "============== Tagbar =============
 nmap <F8> :TagbarToggle<CR>
 
+"============== rainbow =============
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\    'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\    'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\    'operators': '_,_',
+\    'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\    'separately': {
+\        '*': {},
+\        'tex': {
+\            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\        },
+\        'lisp': {
+\            'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\        },
+\        'vim': {
+\            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\        },
+\        'html': {
+\            'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\        },
+\        'css': 0,
+\        'nerdtree': 0,
+\    }
+\}

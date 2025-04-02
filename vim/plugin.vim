@@ -25,6 +25,8 @@ Plug 'tpope/vim-commentary' " Comment stuff out
 Plug 'tpope/vim-surround' " Surround text with quotes, parens, etc
 Plug 'mhinz/vim-signify'
 
+Plug 'luochen1990/rainbow'
+
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
