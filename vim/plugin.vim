@@ -18,25 +18,31 @@ call plug#begin()
 
 " Make sure you use single quotes
 
-Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
-Plug 'preservim/nerdtree' " File system explorer;
-Plug 'github/copilot.vim' " GitHub Copilot integration
-Plug 'tpope/vim-commentary' " Comment stuff out
-Plug 'tpope/vim-surround' " Surround text with quotes, parens, etc
-Plug 'mhinz/vim-signify'
-
-Plug 'luochen1990/rainbow'
-
-Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
-
-Plug 'preservim/tagbar' " Displays tags in a window, ordered by class/function
-
-" Themes and colorschemes
+" Themes
 Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
+
+" Beauti
+Plug 'luochen1990/rainbow'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline' " Lean & mean status/tabline
+
+" Project management
+Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
+Plug 'preservim/nerdtree' " File system explorer;
+Plug 'mhinz/vim-signify' " Visualize git diff
+
+" Batter typing
+Plug 'tpope/vim-commentary' " Comment stuff out
+Plug 'tpope/vim-surround' " Surround text with quotes, parens, etc
+Plug 'github/copilot.vim' " GitHub Copilot integration
+
+" Analysis
+Plug 'preservim/tagbar' " Displays tags in a window, ordered by class/function
+
+" LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
+Plug 'sheerun/vim-polyglot' " Language packs
+Plug 'dense-analysis/ale' " Asynchronous Lint Engine
 
 
 " Call plug#end to update &runtimepath and initialize the plugin system.
