@@ -6,6 +6,6 @@ ssh/*
 !ssh/config
 
 # kitty config
-config/kitty/
+config/kitty/*
 !config/kitty/kitty.conf
-!config/kitty/themes/*
+!config/kitty/themes
