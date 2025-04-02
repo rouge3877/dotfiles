@@ -27,11 +27,14 @@ Plug 'tpope/vim-surround' " Surround text with quotes, parens, etc
 Plug 'mhinz/vim-signify'
 
 Plug 'sheerun/vim-polyglot'
+Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
 
 Plug 'preservim/tagbar' " Displays tags in a window, ordered by class/function
 
 " Themes and colorschemes
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline' " Lean & mean status/tabline
 
 

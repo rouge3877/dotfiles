@@ -49,19 +49,13 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 
-
-
-
-
-
-
 "============== papercolor =============
 " Set the colorscheme to papercolor
 set background=dark
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default': {
-  \       'transparent_background': 1,
+  \       'transparent_background': 0,
   \       'allow_bold': 1,
   \       'allow_italic': 1
   \     }
