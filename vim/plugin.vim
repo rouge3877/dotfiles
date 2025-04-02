@@ -34,7 +34,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
 Plug 'preservim/tagbar' " Displays tags in a window, ordered by class/function
 
 " Themes and colorschemes
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline' " Lean & mean status/tabline
 
