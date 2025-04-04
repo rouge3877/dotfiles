@@ -105,3 +105,21 @@ let g:rainbow_conf = {
 \        'nerdtree': 0,
 \    }
 \}
+
+"============= Copilot =============
+" Copilot settings, about keymap, etc.
+imap <silent><script><expr> <C-C> copilot#Accept("\<CR>")
+imap <C-L> <Plug>(copilot-accept-word)
+imap <C-J> <Plug>(copilot-next)
+imap <C-K> <Plug>(copilot-previous)
+let g:copilot_no_tab_map = v:true
+
+"============= COC =============
+" Use <Tab> and <S-Tab> to navigate through popup menu
+" in the other word, use <C-Tab > and <C-S-Tab> to navigate through popup menu
+
+inoremap <expr> <C-Tab> coc#pum#visible() ? "\<C-n>" : "\<C-Tab>"
+inoremap <expr> <C-S-Tab> coc#pum#visible() ? "\<C-p>" : "\<C-S-Tab>"
+inoremap <expr> <C-Space> coc#refresh()
+
+
