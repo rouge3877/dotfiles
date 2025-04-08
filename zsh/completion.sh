@@ -44,7 +44,17 @@ setopt COMPLETE_IN_WORD   # 允许词中补全
 
 # 启用历史建议功能
 autoload -Uz history-search-end
+autoload -Uz history-substring-search
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^[[A" history-beginning-search-backward-end  # 上箭头
-bindkey "^[[B" history-beginning-search-forward-end   # 下箭头
+bindkey "^W" history-beginning-search-backward-end  # 上箭头
+bindkey "^S" history-beginning-search-forward-end   # 下箭头
+
+bindkey '^[[A' history-substring-search-up # or '\eOA'
+bindkey '^[[B' history-substring-search-down # or '\eOB'
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+bindkey -M vicmd '^K' history-substring-search-up
+bindkey -M vicmd '^J' history-substring-search-down
+
+bindkey '^J' autosuggest-accept
+

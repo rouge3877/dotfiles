@@ -39,7 +39,6 @@ done
 
 
 ########### 2. Set zinit for zsh plugins ###########
-autoload -U compinit; compinit
 
 # proxy_on
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -56,6 +55,7 @@ zinit light zsh-users/zsh-history-substring-search
 zinit light fdellwing/zsh-bat
 zinit light agkozak/zsh-z
 # proxy_off
+autoload -U compinit; compinit
 
 
 ########### 3. Print info and open tmux smartly ###########
