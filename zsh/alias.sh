@@ -11,3 +11,13 @@ alias zshconfig="vim $DOTFILES/zshrc"
 # Reload the config file
 alias zshreload="source $DOTFILES/zshrc"
 
+# About ls
+alias ls="ls --color=auto"
+alias l="ls --color=auto -l -a --human-readable"
+
+# Open the current directory in the file manager
+alias open="xdg-open ."
+
+# about git
+alias gmoji="gitmoji -c"
+
