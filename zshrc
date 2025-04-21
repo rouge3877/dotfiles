@@ -67,6 +67,11 @@ else
   tmux new-session
 fi
 
+# 禁用BELL
+set bell-style none       # 适用于Bash
+bind 'set bell-style none' 2>/dev/null || true
+setopt no_beep           # 禁用所有Zsh的蜂鸣
+
 #################################################################
 
 
