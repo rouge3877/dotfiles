@@ -37,4 +37,11 @@ Host ics-external
    PreferredAuthentications publickey
    IdentityFile ~/.ssh/ics-server
 
+Host CNetExp
+   HostName 45.89.233.225
+   User lyx
+   Port 22
+   PreferredAuthentications publickey
+   IdentityFile ~/.ssh/czx-host
+
 
