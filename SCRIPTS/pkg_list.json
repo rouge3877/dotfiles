@@ -80,12 +80,14 @@
         "Hyprland": [
             "hyprland",
             "hyprpaper",
-            "hyprsysteminfo",
             "hyprland-qt-support",
             "hypridle",
             "hyprlock",
+            "wl-clipboard",
+            "cliphist",
             "grim",
             "slurp",
+            "mupdf",
             "brightnessctl",
             "qt5-wayland",
             "qt6-wayland",
@@ -97,13 +99,15 @@
         "Fonts": [
             "ttf-liberation",
             "adobe-source-han-sans-cn-fonts",
-            "ttf-dorid",
+            "ttf-droid",
             "ttf-hack",
             "ttf-hack-nerd",
             "ttf-dejavu",
             "ttf-dejavu-nerd",
             "ttf-jetbrains-mono",
             "ttf-jetbrains-mono-nerd",
+            "ttf-blobmoji",
+            "otf-font-awesome",
             "ttf-nerd-fonts-symbols"
         ],
         "Input Methods": [
@@ -118,6 +122,7 @@
     },
     "aur": [
         "clash-verge-rev",
+        "hyprsysteminfo",
         "visual-studio-code-bin",
         "google-chrome"
     ],
