@@ -59,13 +59,13 @@ autoload -U compinit; compinit
 
 
 ########### 3. Print info and open tmux smartly ###########
-if [ -n "$TMUX" ]; then
-elif [ -n "$(tmux list-sessions)" ]; then
-  echo "There are tmux sessions running in background"
-  echo "Please attach to them"
-else
-  tmux new-session
-fi
+# if [ -n "$TMUX" ]; then
+# elif [ -n "$(tmux list-sessions)" ]; then
+#   echo "There are tmux sessions running in background"
+#   echo "Please attach to them"
+# else
+#   tmux new-session
+# fi
 
 # 禁用BELL
 set bell-style none       # 适用于Bash

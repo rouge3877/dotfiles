@@ -97,16 +97,19 @@ highlight ExtraWhitespace ctermbg=cyan guibg=#FF0000
 match ExtraWhitespace /\s\+$/ 
 
 "================= Mapping =================
+" Set the arrow keys to scroll left, right, up, down
 " Do this in normal mode...
-nnoremap <Left>  :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up>    :echoe "Use k"<CR>
-nnoremap <Down>  :echoe "Use j"<CR>
-" ...and in insert mode
-inoremap <Left>  <ESC>:echoe "Use h"<CR>
-inoremap <Right> <ESC>:echoe "Use l"<CR>
-inoremap <Up>    <ESC>:echoe "Use k"<CR>
-inoremap <Down>  <ESC>:echoe "Use j"<CR>
+nnoremap <Down> <C-e>
+nnoremap <Up> <C-y>
+nnoremap <Left> <z><h>
+nnoremap <Right> <z><l>
+
+" " ...and in insert mode
+inoremap <Down> <C-e>
+inoremap <Up> <C-y>
+inoremap <Left> <ESC><z><h>
+inoremap <Right> <ESC><z><l>
+
 
 "================= Buffer =================
 " By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
