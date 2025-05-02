@@ -20,7 +20,8 @@ DOTFILES_BACKUP=$DOTFILES/.backup/$(date +%Y%m%d%H%M%S)
 
 # 2. Install the dependencies
 echo "Installing dependencies..."
-# source $DOTFILES_SCRIPTS/dependencies.sh
+cd $DOTFILES_SCRIPTS
+./dependencies.sh ./pkg_list.json
 
 # 3. Symlink the dotfiles
 
@@ -42,7 +43,18 @@ done
 # 4. stow the config/ to ~/.config
 echo "=== Stowing config ==="
 # stow -t $HOME/.config $DOTFILES/config
+cd $DOTFILES/config
+for dir in */; do
+    target_dir="$HOME/.config/${dir%/}"
+    source_dir="$PWD/${dir%/}"
 
+    if [ -e "$target_dir" ]; then
+        echo "backup exist dir: $target_dir -> ${DOTFILES_BACKUP}/${dir%/}.bak"
+        mv "$target_dir" "${DOTFILES_BACKUP}/${dir%/}.bak"
+    fi
+
+    ln -svf "$source_dir" "$target_dir"
+done
 
 
 echo "Done!"

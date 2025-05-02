@@ -1,0 +1,127 @@
+{
+    "pacman": {
+        "Core Development": [
+            "gcc",
+            "gdb",
+            "make",
+            "cmake",
+            "llvm",
+            "clang",
+            "base-devel",
+            "ctags"
+        ],
+        "Python Environment": [
+            "python",
+            "python-pip"
+        ],
+        "Node.js Environment": [
+            "nodejs",
+            "npm"
+        ],
+        "Development Libraries": [
+            "cjson",
+            "jsoncpp",
+            "curl",
+            "openssl",
+            "ncurses"
+        ],
+        "System Tools": [
+            "git",
+            "htop",
+            "neofetch",
+            "wget",
+            "stow",
+            "unzip",
+            "nautilus"
+        ],
+        "Shell and CLI": [
+            "zsh",
+            "tmux",
+            "gvim",
+            "bat",
+            "fzf",
+            "trash-cli"
+        ],
+        "Dev Tools": [
+            "valgrind",
+            "strace",
+            "ltrace",
+            "gdb"
+        ],
+        "Debugging Tools": [
+            "valgrind",
+            "strace",
+            "ltrace"
+        ],
+        "Documentation": [
+            "man-db",
+            "man-pages",
+            "tldr",
+            "pandoc",
+            "glow"
+        ],
+        "Networking": [
+            "nmap",
+            "openssh",
+            "net-tools"
+        ],
+        "GUI Applications": [
+            "wireshark-qt",
+            "zen-browser"
+        ],
+        "Vedio and Audio": [
+            "mpv",
+            "yt-dlp",
+            "ffmpeg",
+            "pipewire",
+            "playerctl",
+            "obs-studio"
+        ],
+        "Hyprland": [
+            "hyprland",
+            "hyprpaper",
+            "hyprsysteminfo",
+            "hyprland-qt-support",
+            "hypridle",
+            "hyprlock",
+            "grim",
+            "slurp",
+            "brightnessctl",
+            "qt5-wayland",
+            "qt6-wayland",
+            "xdg-desktop-portal-hyprland",
+            "waybar",
+            "dunst",
+            "libnotify"
+        ],
+        "Fonts": [
+            "ttf-liberation",
+            "adobe-source-han-sans-cn-fonts",
+            "ttf-dorid",
+            "ttf-hack",
+            "ttf-hack-nerd",
+            "ttf-dejavu",
+            "ttf-dejavu-nerd",
+            "ttf-jetbrains-mono",
+            "ttf-jetbrains-mono-nerd",
+            "ttf-nerd-fonts-symbols"
+        ],
+        "Input Methods": [
+            "fcitx5",
+            "fcitx5-configtool",
+            "fcitx5-chinese-addons"
+        ],
+        "Miscellaneous": [
+            "cmatrix",
+            "sl"
+        ]
+    },
+    "aur": [
+        "clash-verge-rev",
+        "visual-studio-code-bin",
+        "google-chrome"
+    ],
+    "npm": [
+        "gitmoji-cli"
+    ]
+}
