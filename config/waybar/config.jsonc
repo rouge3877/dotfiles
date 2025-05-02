@@ -1,313 +1,266 @@
-[{
-  // MAIN BAR //
+// ========================
+// WAYBAR 双状态栏配置文件
+// 主状态栏 + 精简指示器
+// ========================
 
-  "layer": "top",
-	"position": "top",
-  "name": "first",
+[
+  // ======================
+  // 主状态栏配置 (MAIN BAR)
+  // ======================
+  {
+    // 基础设置
+    "layer": "top",      // 显示在屏幕最顶层
+    "position": "top",   // 固定于屏幕顶部
+    "name": "first",     // 状态栏唯一标识名
 
-	"modules-left": [
-    "tray",
-    "custom/spacer1",
-		"custom/spacer2",
-    "hyprland/workspaces",
-    "custom/spacer2",
-		"custom/spacer3",
-    "hyprland/submap",
-    "hyprland/window"
-	],
-
-	"modules-right": [
-    "custom/spacer1",
-    "cpu",
-    "custom/spacer1",
-    "temperature",
-    "custom/spacer1",
-		"memory#ram",
-    "custom/spacer1",
-		"memory#swap",
-    "custom/spacer1",
-    "disk",
-    "custom/spacer1",
-    "network#info",
-    "custom/spacer1",
-    "pulseaudio#input",   
-    "custom/spacer1",
-    "pulseaudio#output",
-    "custom/spacer1",
-    "hyprland/language",
-    "custom/spacer1",
-    "backlight",
-    "custom/spacer1",
-    "battery",
-    "custom/spacer1",		
-    "clock"
-	],
-
-	// Modules
-	"disk":{
-		"interval": 10,
-		"format": " {percentage_used}%",
-    "tooltip": "{}",
-    "tooltip-format": "Free {free}"
-	},
-
-  "backlight": {
-    "device": "intel_backlight",
-    "format": "{icon} {percent}%",
-    "format-icons": ["󱩎", "󱩑", "󱩓", "󱩕", "󰛨"],
-    "scroll-step": 5
-  },
+    // ---------------
+    // 左侧模块布局
+    // ---------------
+    "modules-left": [
+      "tray",             // 系统托盘图标
+      "custom/spacer3",   // 自定义分隔符1（显示反斜杠）
+      "hyprland/window"   // 当前窗口标题
+    ],
 
 
-	"battery": {
-		"interval": 10,
-		"states": {
-			"warning": 20,
-			"critical": 10
-		},
-		/*"format-time": "{H}:{M:02}",*/
-		"format": "{icon} {capacity}%",
-		"format-charging": " {capacity}%",
-		"format-charging-full": " {capacity}%",
-		"format-full": "{icon} {capacity}%",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		],
-		"tooltip": "{}",
-    "tooltip-format": " {power}W"
-	},
+    // ---------------
+    // 中间模块布局
+    // ---------------
 
-	"clock": {
-		"interval": 10,
-		"format": " {:%H:%M}",
-		"tooltip-format": "Current date: {:%d.%m.%Y} \n\n<tt><small>{calendar}</small></tt>",
-    "calendar": {
-      "mode"          : "year",
-      "mode-mon-col"  : 3,
-      "weeks-pos"     : "right",    // Nicked from Archttila
-      "on-scroll"     : 1,
-      "on-click-right": "mode",
-      "format": {
-        "months":     "<span color='#cba6f7'><b>{}</b></span>",
-        "days":       "<span color='#cdd6f4'><b>{}</b></span>",
-        "weeks":      "<span color='#94e2d5'> W{}</span>",
-        "weekdays":   "<span color='#f9e2af'><b>{}</b></span>",
-        "today":      "<span color='#f5e0dc'><b><u>{}</u></b></span>"
+    "modules-center": [
+      "hyprland/workspaces"  // Hyprland 工作区切换器
+    ],
+
+    // ---------------
+    // 右侧模块布局
+    // ---------------
+    "modules-right": [
+      "custom/spacer1",     // 分隔符1
+      "cpu",                // CPU 使用率
+      "temperature",        // CPU 温度
+      "custom/spacer1",
+      "memory#ram",         // 物理内存使用
+      "custom/spacer1",
+      // "memory#swap",        // 交换分区使用
+      // "custom/spacer1",
+      // "disk",               // 磁盘使用率
+      // "custom/spacer1",
+      "network#info",       // 网络状态信息
+      "custom/spacer1",
+      "pulseaudio#input",   // 麦克风输入音量
+      "custom/spacer1",
+      "pulseaudio#output", // 扬声器输出音量
+      "custom/spacer1",
+      "backlight",          // 屏幕亮度控制
+      "custom/spacer1",
+      "battery",            // 电池状态
+      "custom/spacer1",
+      "clock"               // 时间与日期
+    ],
+
+    // ---------------------------
+    // 模块详细配置 (按字母顺序)
+    // ---------------------------
+
+    // 背光控制模块
+    "backlight": {
+      "device": "intel_backlight",   // 指定背光设备
+      "format": "{icon} {percent}%", // 显示格式：图标+百分比
+      "format-icons": [              // 亮度等级图标（需 Nerd Font）
+        "󱩎", "󱩑", "󱩓", "󱩕", "󰛨"     // 5级亮度图标
+      ],
+      "scroll-step": 5              // 滚轮调整步长（百分比）
+    },
+
+    // 电池状态模块
+    "battery": {
+      "interval": 10,                     // 刷新间隔（秒）
+      "states": {                         // 电量状态阈值
+        "warning": 20,                    // 20% 时显示警告
+        "critical": 10                    // 10% 时显示严重警告
+      },
+      "format": "{icon} {capacity}%",      // 常规显示格式
+      "format-charging": " {capacity}%", // 充电状态格式
+      "format-full": "{icon} {capacity}%",// 满电状态格式
+      "format-icons": [                   // 电量图标分级
+        "", "", "", "", ""          // 0-20%, 20-40%, 40-60%, 60-80%, 80-100%
+      ],
+      "tooltip-format": " {power}W"      // 悬停显示充电功率
+    },
+
+    // 时钟模块
+    "clock": {
+      "interval": 10,                     // 刷新间隔
+      "format": " {:%H:%M}",             // 主显示格式（时间）
+      "tooltip-format": "Current date: {:%d.%m.%Y} \n\n<tt><small>{calendar}</small></tt>", // 悬停信息
+      "calendar": {                       // 日历弹出配置
+        "mode": "year",                   // 默认显示年视图
+        "mode-mon-col": 3,                // 月份视图列数
+        "weeks-pos": "right",             // 周数显示位置
+        "format": {                       // 日历元素样式
+          "months": "<span color='#cba6f7'><b>{}</b></span>",
+          "days": "<span color='#cdd6f4'><b>{}</b></span>",
+          "weeks": "<span color='#94e2d5'> W{}</span>",
+          "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+          "today": "<span color='#f5e0dc'><b><u>{}</u></b></span>"
         }
       },
-      "actions":  {
-        "on-click-right": "mode",
-        "on-click-forward": "tz_up",
-        "on-click-backward": "tz_down",
-        "on-scroll-up": "shift_up",
-        "on-scroll-down": "shift_down"
-          }
-	},
+      "actions": {                        // 交互操作绑定
+        "on-click-right": "mode",         // 右键切换视图模式
+        "on-click-forward": "tz_up",      // 前进按钮切换时区
+        "on-click-backward": "tz_down",   // 后退按钮切换时区
+        "on-scroll-up": "shift_up",       // 滚轮上滑调整日期
+        "on-scroll-down": "shift_down"    // 滚轮下滑调整日期
+      }
+    },
 
-	"cpu": {
-		"interval": 5,
-		"tooltip": " {load}",
-		"format": " {usage}%",
-		"states": {
-			"warning": 80,
-			"critical": 95
-		}
-	},
+    // CPU 监控模块
+    "cpu": {
+      "interval": 5,                     // 更快的刷新间隔
+      "format": " {usage}%",            // 图标+使用率
+      "tooltip": " {load}",             // 悬停显示负载详情
+      "states": {                        // 状态阈值
+        "warning": 80,                  // 80% 显示警告
+        "critical": 95                  // 95% 显示严重警告
+      }
+    },
 
-	"hyprland/language": {
-		"format": " {}",
-    "format-fi": "Vittu",
-    "format-ru": "Блять",
-		"min-length": 7,
-		"on-click": "hyprctl switchxkblayout current next",
-		"tooltip": false,
-    "class": "language"
-	},
+    // 磁盘使用模块
+    "disk": {
+      "interval": 10,                    // 刷新间隔
+      "format": " {percentage_used}%",  // 图标+使用百分比
+      "tooltip-format": "Free {free}"     // 悬停显示剩余空间
+    },
 
-	"memory#ram": {
-		"interval": 5,
-		"format": " {percentage}%",
-    "states": {
-			"warning": 80,
-			"critical": 95
-		},
-		"tooltip": "{}",
-    "tooltip-format":"{used}/{total} GiB"
-	},
+    // Hyprland 键盘布局指示
+    "hyprland/language": {
+      "format": " {}",                  // 键盘图标+布局名称
+      "format-fi": "Vittu",              // 芬兰语布局自定义显示
+      "format-ru": "Блять",              // 俄语布局自定义显示
+      "min-length": 7,                   // 最小显示宽度
+      "on-click": "hyprctl switchxkblayout current next", // 点击切换布局
+      "class": "language"                // CSS 类名
+    },
 
-	"memory#swap": {
-		"interval": 5,
-		"format": "󰾵 {swapPercentage}%",
-		"tooltip": "{}",
-    "tooltip-format":"{swapUsed}/{swapTotal}GiB"
-	},
+    // Hyprland 键盘子模式指示
+    "hyprland/submap": {
+      "always-on": true,                 // 始终保持显示
+      "format": "[{}]",                  // 显示格式（带方括号）
+      "tooltip": false                   // 禁用悬停提示
+    },
 
-	"network#info": {
-		"interval": 1,
-		"format": "󱘖  Offline",
-    "format-wifi": "{icon} {bandwidthDownBits}",
-    "format-ethernet": "󰈀 {bandwidthDownBits}",
-		"min-length": 11,
-    "tooltip": "{}",
-    "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
-    "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
-		"on-click": "iwgtk",
-		"format-icons": [
-			"󰤫",
-			"󰤟",
-			"󰤢",
-			"󰤥",
-			"󰤨"
-    ],
-	  "states": {
-      "normal": 25
+    // 当前窗口标题模块
+    "hyprland/window": {
+      "format": "{title}",               // 显示窗口标题
+      "max-length": 48,                  // 最大字符限制
+      "icon": true,                     // 显示窗口图标
+      "icon-size": 18                   // 图标尺寸（像素）
+    },
+
+    // Hyprland 工作区模块
+    "hyprland/workspaces": {
+      "disable-scroll-wraparound": true, // 禁用循环滚动
+      "format": "{icon}",                // 仅显示图标
+      "format-icons": {                 // 特殊工作区图标
+        "magic": " SCRATCH",            // 名为 "magic" 的工作区
+        "10": "󰊴 "                      // 工作区 10 的图标
+      },
+      "show-special": true              // 显示特殊工作区
+    },
+
+    // 物理内存监控
+    "memory#ram": {
+      "interval": 5,
+      "format": " {percentage}%",      // 图标+使用百分比
+      "tooltip-format": "{used}/{total} GiB", // 悬停显示具体用量
+      "states": {
+        "warning": 80,
+        "critical": 95
+      }
+    },
+
+    // 交换分区监控
+    "memory#swap": {
+      "interval": 5,
+      "format": "󰾵 {swapPercentage}%",  // 不同图标区分
+      "tooltip-format": "{swapUsed}/{swapTotal}GiB"
+    },
+
+    // 网络状态模块
+    "network#info": {
+      "interval": 1,                    // 实时刷新
+      "format-wifi": "{icon} {bandwidthDownBits}", // WiFi 显示格式
+      "format-ethernet": "󰈀 {bandwidthDownBits}", // 有线连接图标
+      "format-icons": [                 // WiFi 信号强度图标
+        "󰤫", "󰤟", "󰤢", "󰤥", "󰤨"      // 0-25%, 25-50%, 50-75%, 75-100%
+      ],
+      "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}", // 详细悬停信息
+      "on-click": "iwgtk"              // 点击启动网络管理
+    },
+
+    // 音频输出模块
+    "pulseaudio#output": {
+      "format": "{icon} {volume}%",      // 图标+音量百分比
+      "format-bluetooth": "{icon} {volume}%", // 蓝牙设备前缀
+      "format-icons": {                 // 设备类型图标
+        "headphone": "",               // 耳机图标
+        "default": ["", ""]           // 默认扬声器图标（静音/非静音）
+      },
+      "scroll-step": 5,                 // 滚轮调整步长
+      "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle" // 点击静音
+    },
+
+    // 麦克风输入模块
+    "pulseaudio#input": {
+      "format": " {format_source}",    // 麦克风图标
+      "on-scroll-up": "sh -c 'vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP \"\\d+(?=%)\" | head -1); if [ \"$vol\" -lt 100 ]; then pactl set-source-volume @DEFAULT_SOURCE@ +5%; fi'", // 音量增加脚本
+      "max-volume": "100",              // 最大音量限制
+      "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle" // 点击静音
+    },
+
+    // 温度监控模块
+    "temperature": {
+      "critical-threshold": 90,         // 温度报警阈值
+      "format": "{icon} {temperatureC}°", // 图标+温度值
+      "format-icons": ["", "", "", "", ""] // 温度等级图标
+    },
+
+    // 系统托盘模块
+    "tray": {
+      "icon-size": 18,                  // 托盘图标尺寸
+      "spacing": 6                      // 图标间距
+    },
+
+    // ========================
+    // 自定义分隔符模块
+    // ========================
+    "custom/spacer1": { "format": "|", "tooltip": false }, // 反斜杠分隔
+    "custom/spacer2": { "format": " ",  "tooltip": false },  // 空格分隔
+    "custom/spacer3": { "format": "|",  "tooltip": false }   // 斜杠分隔
+  },
+
+  // ============================
+  // 第二状态栏 (INDICATOR BAR)
+  // 用于特殊场景的极简状态栏
+  // ============================
+  {
+    "layer": "top",
+    "position": "top",
+    "name": "second",          // 标识名
+    "width": 2304,             // 固定宽度（适用于 4K 分辨率）
+
+    // 极简布局
+    "modules-left": ["battery"],    // 仅显示电池
+    "modules-right": ["hyprland/submap"], // 仅显示键盘模式
+
+    // 模块覆写配置
+    "hyprland/submap": {
+      "format": "",             // 隐藏子模式提示
+      "tooltip": false
+    },
+    "battery": {
+      "format": "{} ",          // 仅显示空格占位
+      "format-critical": " "    // 临界状态也显示空格
     }
-  },
-  
-  "network#up": {
-    "interval": 5,
-    "format": " ",
-    "format-wifi": "󰕒 {bandwidthUpBits}",
-    "format-ethernet": "󰕒 {bandwidthUpBits}",
-    "format-disconnected": " ",
-    "min-length": 11
-  },
-
-  "network#down": {
-    "interval": 5,
-    "format": "󰇚 {bandwidthDownBits}",
-    "format-wifi": "󰇚 {bandwidthDownBits}",
-    "format-ethernet": "󰇚 {bandwidthDownBits}",
-    "min-length": 11
-  },
-
-	"hyprland/submap": {
-		"always-on": true,
-    "default-submap": "",
-    "format": "[{}]",
-    "format-resize": "{}",
-		"tooltip": false
-	},
-
-	"hyprland/window": {
-		"format": "{title}",
-    "max-length": 48,
-		"tooltip": false,
-    "icon": true,
-    "icon-size": 18
-	},
-
-	"hyprland/workspaces": {
-		"disable-scroll-wraparound": true,
-		"smooth-scrolling-threshold": 4,
-		"enable-bar-scroll": true,
-		"format": "{icon}",
-    "show-special": true,
-    "special-visible-only": true,
-    "format-icons": {
-      "magic": " SCRATCH",
-      "10": "󰊴 "
-    }
-	},
-
-	"pulseaudio#output": {
-		"format": "{icon} {volume}%",
-		"format-bluetooth": "{icon} {volume}%",
-		"format-source-muted": "{volume}",
-    "format-icons": {
-			"headphone": "",
-			"hands-free": "",
-			"headset": "",
-			"phone": "",
-			"portable": "",
-			"car": "",
-			"default": ["", ""]
-		},
-		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-		"tooltip": true,
-	  "scroll-step": 5
-  },
-
-  "pulseaudio#input": {
-    "format": " {format_source}%",
-    "format-source": "{volume}",
-    "format-source-muted": "{volume}",
-    "on-scroll-up": "sh -c 'vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP \"\\d+(?=%)\" | head -1); if [ \"$vol\" -lt 100 ]; then pactl set-source-volume @DEFAULT_SOURCE@ +5%; fi'",
-    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%",
-    "max-volume": "100",
-    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-    "tooltip-format": "{source_desc}"
-  },
-
-	"temperature": {
-		"critical-threshold": 90,
-		"interval": 5,
-		"format": "{icon} {temperatureC}°",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		],
-		"tooltip": false
-	},
-
-	"tray": {
-		"icon-size": 18,
-		"spacing": 6
-	},
-
-  "custom/spacer1": {
-		"format": "\\",
-		"tooltip": false
-	},
-
-  "custom/spacer2": {
-		"format": " ",
-		"tooltip": false
-  },
-
-  "custom/spacer3": {
-		"format": "/",
-		"tooltip": false
   }
-},
-
-{
-  // INDICATOR //
-
-  "layer": "top",
-  "position": "top",
-  "name": "second",
-  "width": 2304,  
-
-  "modules-left": [
-    "battery"
-  ],
-
-  "modules-right": [
-    "hyprland/submap"
-  ],
-
-  // Modules
-	"hyprland/submap": {
-		"always-on": true,
-    "format": "",
-		"tooltip": false
-	},
-
-	"battery": {
-		"interval": 10,
-    "format": "{} ",
-		"format-critical": " ",
-    "states": {
-			"critical": 10
-		}
-  }
-}]
-
+]
