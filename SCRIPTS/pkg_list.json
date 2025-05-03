@@ -37,6 +37,7 @@
         "Shell and CLI": [
             "zsh",
             "tmux",
+            "jq",
             "gvim",
             "bat",
             "fzf",
@@ -81,6 +82,7 @@
             "hyprland",
             "hyprpaper",
             "hyprland-qt-support",
+            "hyprpolkitagent",
             "hypridle",
             "hyprlock",
             "wl-clipboard",
