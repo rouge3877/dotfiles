@@ -85,6 +85,7 @@
             "hyprpolkitagent",
             "hypridle",
             "hyprlock",
+            "hyprcursor",
             "wl-clipboard",
             "wlogout",
             "cliphist",
@@ -125,6 +126,7 @@
     },
     "aur": [
         "clash-verge-rev",
+        "rose-pine-hyprcursor",
         "hyprsysteminfo",
         "visual-studio-code-bin",
         "google-chrome"
