@@ -79,7 +79,7 @@
     // 修改后的媒体控制模块
     "custom/playerctl": {
       "exec": "~/.config/waybar/playerctl.sh",
-      "interval": 5,
+      "interval": 3,
       "return-type": "json",
       "on-click": "playerctl play-pause",
       "on-click-right": "playerctl stop",
@@ -191,7 +191,7 @@
 
     // 网络状态模块
     "network#info": {
-      "interval": 5,                    // 实时刷新
+      "interval": 3,                    // 实时刷新
       "format-wifi": "{icon} {bandwidthDownBits}", // WiFi 显示格式
       "format-ethernet": "󰈀 {bandwidthDownBits}", // 有线连接图标
       "format-icons": [                 // WiFi 信号强度图标

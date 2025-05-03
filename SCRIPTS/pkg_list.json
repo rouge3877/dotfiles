@@ -72,6 +72,7 @@
         ],
         "Vedio and Audio": [
             "mpv",
+            "mpv-mpris",
             "yt-dlp",
             "ffmpeg",
             "pipewire",
@@ -129,6 +130,9 @@
         "rose-pine-hyprcursor",
         "hyprsysteminfo",
         "visual-studio-code-bin",
+        "linuxqq",
+        "wechat-bin",
+        "fcitx5-theme-wechat",
         "google-chrome"
     ],
     "npm": [
