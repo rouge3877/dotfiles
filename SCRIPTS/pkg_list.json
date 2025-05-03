@@ -134,6 +134,7 @@
         "linuxqq",
         "wechat-bin",
         "fcitx5-theme-wechat",
+        "fcitx5-skin-fluentdark-git",
         "google-chrome"
     ],
     "npm": [
