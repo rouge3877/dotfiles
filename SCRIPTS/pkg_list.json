@@ -73,6 +73,7 @@
         "Vedio and Audio": [
             "mpv",
             "mpv-mpris",
+            "mpv-osc-modernx-git",
             "yt-dlp",
             "ffmpeg",
             "pipewire",
