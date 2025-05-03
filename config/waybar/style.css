@@ -4,9 +4,9 @@
 @define-color warning #FF7070;
 @define-color indigo1 rgba(0, 0, 0, 1);
 @define-color indigo2 rgba(9, 7, 31, 0.5);
-@define-color	indigo3 rgba(9, 7, 31, 1.0);
+@define-color indigo3 rgba(9, 7, 31, 1.0);
 @define-color resize #10aa70;
-@define-color redius-bg rgba(169,169,169, 0.5);
+@define-color redius-bg rgba(169, 169, 169, 0.5);
 
 /* Reset all styles */
 * {
@@ -150,7 +150,7 @@
 	color: @white;
 }
 
-#waybar.first #tray{
+#waybar.first #tray {
 	background: @redius-bg;
 	border-radius: 30%/100%;
 }
@@ -175,6 +175,10 @@ tooltip {
 	/* This makes indicator thicker */
 	color: rgba(0, 0, 0, 0);
 	background: none;
+	font-family: JetBrains Mono Nerd Font;
+	font-weight: bold;
+	padding: 7px;
+	margin: 7px;
 }
 
 #waybar.second #workspaces {
