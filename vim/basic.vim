@@ -14,8 +14,25 @@ set encoding=UTF-8 " Set the default encoding to UTF-8, just in case
 
 "================= Clipboard =================
 " Use the system clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
+" 设置剪贴板命令为 wl-clipboard
+if executable('wl-copy') && executable('wl-paste')
+  let g:clipboard = {
+    \ 'name': 'wl-clipboard',
+    \ 'copy': {
+      \ '+': 'wl-copy --foreground --type text/plain',
+      \ '*': 'wl-copy --foreground --primary --type text/plain',
+    \ },
+    \ 'paste': {
+      \ '+': 'wl-paste --no-newline',
+      \ '*': 'wl-paste --no-newline --primary',
+    \ },
+    \ 'cache_enabled': 0
+  \ }
+endif
+
+vnoremap <C-c> y:call system("wl-copy", @")<CR>
 
 "================= Line and Line Number =================
 " Show line numbers (relative + absolute).
