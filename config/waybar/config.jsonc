@@ -9,7 +9,7 @@
   // ======================
   {
     // 基础设置
-    "layer": "top",      // 显示在屏幕最顶层
+    "layer": "top",
     "position": "top",   // 固定于屏幕顶部
     "name": "first",     // 状态栏唯一标识名
 
@@ -18,8 +18,8 @@
     // ---------------
     "modules-left": [
       "tray",             // 系统托盘图标
-      "custom/spacer3",   // 自定义分隔符1（显示反斜杠）
-      "hyprland/window"   // 当前窗口标题
+      "custom/spacer1",   // 自定义分隔符1
+      "custom/playerctl" // 媒体控制模块
     ],
 
 
@@ -28,33 +28,21 @@
     // ---------------
 
     "modules-center": [
-      "hyprland/workspaces"  // Hyprland 工作区切换器
+      // "custom/spacer3",   // 自定义分隔符1
+      // "hyprland/workspaces",  // Hyprland 工作区切换器
+      "hyprland/window"   // 当前窗口标题
     ],
 
     // ---------------
     // 右侧模块布局
     // ---------------
     "modules-right": [
-      "custom/spacer1",     // 分隔符1
-      "cpu",                // CPU 使用率
-      "temperature",        // CPU 温度
-      "custom/spacer1",
-      "memory#ram",         // 物理内存使用
-      "custom/spacer1",
-      // "memory#swap",        // 交换分区使用
-      // "custom/spacer1",
-      // "disk",               // 磁盘使用率
-      // "custom/spacer1",
-      "network#info",       // 网络状态信息
-      "custom/spacer1",
-      "pulseaudio#input",   // 麦克风输入音量
-      "custom/spacer1",
-      "pulseaudio#output", // 扬声器输出音量
-      "custom/spacer1",
       "backlight",          // 屏幕亮度控制
-      "custom/spacer1",
+      "custom/system-stats", // 自定义系统监控
+      "network#info",       // 网络状态信息
+      "pulseaudio#input",   // 麦克风输入音量
+      "pulseaudio#output", // 扬声器输出音量
       "battery",            // 电池状态
-      "custom/spacer1",
       "clock"               // 时间与日期
     ],
 
@@ -88,6 +76,39 @@
       "tooltip-format": " {power}W"      // 悬停显示充电功率
     },
 
+    // 修改后的媒体控制模块
+    "custom/playerctl": {
+      "exec": "~/.config/waybar/playerctl.sh",
+      "interval": 5,
+      "return-type": "json",
+      "on-click": "playerctl play-pause",
+      "on-click-right": "playerctl stop",
+      "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+      "on-scroll-up": "playerctl next",
+      "on-scroll-down": "playerctl previous",
+      "format": "{}",        // 显示图标+状态
+      "max-length": 20,
+      "signal": 1
+    },
+
+    // 新增自定义系统监控模块
+    "custom/system-stats": {
+      "exec": "~/.config/waybar/system-stats.sh",
+      "interval": 5,
+      "format": " {}",
+      "return-type": "json",
+      "on-click": "kitty --class=sysmon htop"
+    },
+
+    // 优化后的窗口模块
+    "hyprland/window": {
+      "format": "{title}",
+      "max-length": 20,
+      "icon": true,
+      "tooltip-format": "App: {class}\nTitle: {title}",
+      "icon-size": 18
+    },
+
     // 时钟模块
     "clock": {
       "interval": 10,                     // 刷新间隔
@@ -106,55 +127,12 @@
         }
       },
       "actions": {                        // 交互操作绑定
-        "on-click-right": "mode",         // 右键切换视图模式
-        "on-click-forward": "tz_up",      // 前进按钮切换时区
-        "on-click-backward": "tz_down",   // 后退按钮切换时区
-        "on-scroll-up": "shift_up",       // 滚轮上滑调整日期
-        "on-scroll-down": "shift_down"    // 滚轮下滑调整日期
+        // "on-click-forward": "tz_up",      // 前进按钮切换时区
+        // "on-click-backward": "tz_down",   // 后退按钮切换时区
+        // "on-scroll-up": "shift_up",       // 滚轮上滑调整日期
+        // "on-scroll-down": "shift_down",    // 滚轮下滑调整日期
+        "on-click-right": "mode"         // 右键切换视图模式
       }
-    },
-
-    // CPU 监控模块
-    "cpu": {
-      "interval": 5,                     // 更快的刷新间隔
-      "format": " {usage}%",            // 图标+使用率
-      "tooltip": " {load}",             // 悬停显示负载详情
-      "states": {                        // 状态阈值
-        "warning": 80,                  // 80% 显示警告
-        "critical": 95                  // 95% 显示严重警告
-      }
-    },
-
-    // 磁盘使用模块
-    "disk": {
-      "interval": 10,                    // 刷新间隔
-      "format": " {percentage_used}%",  // 图标+使用百分比
-      "tooltip-format": "Free {free}"     // 悬停显示剩余空间
-    },
-
-    // Hyprland 键盘布局指示
-    "hyprland/language": {
-      "format": " {}",                  // 键盘图标+布局名称
-      "format-fi": "Vittu",              // 芬兰语布局自定义显示
-      "format-ru": "Блять",              // 俄语布局自定义显示
-      "min-length": 7,                   // 最小显示宽度
-      "on-click": "hyprctl switchxkblayout current next", // 点击切换布局
-      "class": "language"                // CSS 类名
-    },
-
-    // Hyprland 键盘子模式指示
-    "hyprland/submap": {
-      "always-on": true,                 // 始终保持显示
-      "format": "[{}]",                  // 显示格式（带方括号）
-      "tooltip": false                   // 禁用悬停提示
-    },
-
-    // 当前窗口标题模块
-    "hyprland/window": {
-      "format": "{title}",               // 显示窗口标题
-      "max-length": 48,                  // 最大字符限制
-      "icon": true,                     // 显示窗口图标
-      "icon-size": 18                   // 图标尺寸（像素）
     },
 
     // Hyprland 工作区模块
@@ -162,40 +140,65 @@
       "disable-scroll-wraparound": true, // 禁用循环滚动
       "format": "{icon}",                // 仅显示图标
       "format-icons": {                 // 特殊工作区图标
-        "magic": " SCRATCH",            // 名为 "magic" 的工作区
+        "magic": "XD",            // 名为 "magic" 的工作区
         "10": "󰊴 "                      // 工作区 10 的图标
       },
       "show-special": true              // 显示特殊工作区
     },
 
-    // 物理内存监控
-    "memory#ram": {
-      "interval": 5,
-      "format": " {percentage}%",      // 图标+使用百分比
-      "tooltip-format": "{used}/{total} GiB", // 悬停显示具体用量
-      "states": {
-        "warning": 80,
-        "critical": 95
-      }
-    },
+    // "temperature": {
+    //   "critical-threshold": 90,
+    //   "format": "{icon} {temperatureC}°", // 仅显示图标+温度
+    //   "format-icons": ["", "", "", "", ""],
+    //   "interval": 5  // 增加刷新频率
+    // },
 
-    // 交换分区监控
-    "memory#swap": {
-      "interval": 5,
-      "format": "󰾵 {swapPercentage}%",  // 不同图标区分
-      "tooltip-format": "{swapUsed}/{swapTotal}GiB"
-    },
+    // // CPU 监控模块
+    // "cpu": {
+    //   "interval": 5,                     // 更快的刷新间隔
+    //   "format": " {usage}%",            // 图标+使用率
+    //   "tooltip": " {load}",             // 悬停显示负载详情
+    //   "states": {                        // 状态阈值
+    //     "warning": 80,                  // 80% 显示警告
+    //     "critical": 95                  // 95% 显示严重警告
+    //   }
+    // },
+
+    // // 磁盘使用模块
+    // "disk": {
+    //   "interval": 10,                    // 刷新间隔
+    //   "format": " {percentage_used}%",  // 图标+使用百分比
+    //   "tooltip-format": "Free {free}"     // 悬停显示剩余空间
+    // },
+
+    // // 物理内存监控
+    // "memory#ram": {
+    //   "interval": 5,
+    //   "format": " {percentage}%",      // 图标+使用百分比
+    //   "tooltip-format": "{used}/{total} GiB", // 悬停显示具体用量
+    //   "states": {
+    //     "warning": 80,
+    //     "critical": 95
+    //   }
+    // },
+
+    // // 交换分区监控
+    // "memory#swap": {
+    //   "interval": 5,
+    //   "format": "󰾵 {swapPercentage}%",  // 不同图标区分
+    //   "tooltip-format": "{swapUsed}/{swapTotal}GiB"
+    // },
 
     // 网络状态模块
     "network#info": {
-      "interval": 1,                    // 实时刷新
+      "interval": 5,                    // 实时刷新
       "format-wifi": "{icon} {bandwidthDownBits}", // WiFi 显示格式
       "format-ethernet": "󰈀 {bandwidthDownBits}", // 有线连接图标
       "format-icons": [                 // WiFi 信号强度图标
         "󰤫", "󰤟", "󰤢", "󰤥", "󰤨"      // 0-25%, 25-50%, 50-75%, 75-100%
       ],
-      "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}", // 详细悬停信息
-      "on-click": "iwgtk"              // 点击启动网络管理
+      "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}\nIP: {ipaddr}", // 悬停显示 WiFi 详情
+      "on-click": "iwctl"              // 点击启动网络管理
     },
 
     // 音频输出模块
@@ -218,13 +221,6 @@
       "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle" // 点击静音
     },
 
-    // 温度监控模块
-    "temperature": {
-      "critical-threshold": 90,         // 温度报警阈值
-      "format": "{icon} {temperatureC}°", // 图标+温度值
-      "format-icons": ["", "", "", "", ""] // 温度等级图标
-    },
-
     // 系统托盘模块
     "tray": {
       "icon-size": 18,                  // 托盘图标尺寸
@@ -234,7 +230,7 @@
     // ========================
     // 自定义分隔符模块
     // ========================
-    "custom/spacer1": { "format": "|", "tooltip": false }, // 反斜杠分隔
+    "custom/spacer1": { "format": " |", "tooltip": false },
     "custom/spacer2": { "format": " ",  "tooltip": false },  // 空格分隔
     "custom/spacer3": { "format": "|",  "tooltip": false }   // 斜杠分隔
   },
@@ -245,22 +241,26 @@
   // ============================
   {
     "layer": "top",
-    "position": "top",
+    "position": "bottom",        // 固定于屏幕底部
     "name": "second",          // 标识名
-    "width": 2304,             // 固定宽度（适用于 4K 分辨率）
 
-    // 极简布局
-    "modules-left": ["battery"],    // 仅显示电池
-    "modules-right": ["hyprland/submap"], // 仅显示键盘模式
+    // ---------------
+    // 中间模块布局
+    // ---------------
+    "modules-center": [
+      "hyprland/workspaces"  // Hyprland 工作区切换器
+    ],
 
-    // 模块覆写配置
-    "hyprland/submap": {
-      "format": "",             // 隐藏子模式提示
-      "tooltip": false
+    // Hyprland 工作区模块
+    "hyprland/workspaces": {
+      "disable-scroll-wraparound": true, // 禁用循环滚动
+      "format": "{icon}",                // 仅显示图标
+      "format-icons": {                 // 特殊工作区图标
+        "magic": "XD",            // 名为 "magic" 的工作区
+        "10": "󰊴 "                      // 工作区 10 的图标
+      },
+      "show-special": true              // 显示特殊工作区
     },
-    "battery": {
-      "format": "{} ",          // 仅显示空格占位
-      "format-critical": " "    // 临界状态也显示空格
-    }
+
   }
 ]

@@ -1,11 +1,12 @@
 @define-color darkgrey #606060;
-@define-color white	   #FFFFFF;
-@define-color warning  #FF7070;
-@define-color indigo1  #4c539f;
-@define-color indigo2  rgba(9, 7, 31, 0.5);
-@define-color	indigo3  rgba(9, 7, 31, 1.0);
-@define-color resize   #10aa70;
-
+@define-color white #FFFFFF;
+@define-color black rgba(0, 0, 0, 1);
+@define-color warning #FF7070;
+@define-color indigo1 rgba(0, 0, 0, 1);
+@define-color indigo2 rgba(9, 7, 31, 0.5);
+@define-color	indigo3 rgba(9, 7, 31, 1.0);
+@define-color resize #10aa70;
+@define-color redius-bg rgba(169,169,169, 0.5);
 
 /* Reset all styles */
 * {
@@ -18,9 +19,9 @@
 	text-shadow: none;
 }
 
-   /*----------*/
-  /* MAIN BAR */
- /*----------*/
+/*----------*/
+/* MAIN BAR */
+/*----------*/
 
 /* Keyframes for 1st bar criticals */
 @keyframes blink-critical-text {
@@ -38,7 +39,7 @@
 
 /* The Main bar */
 #waybar.first {
-  background: @indigo2;
+	background: @black;
 	color: @white;
 	font-family: JetBrains Mono Nerd Font;
 	font-size: 12pt;
@@ -46,79 +47,56 @@
 }
 
 #waybar.first button {
-  font-family: JetBrains Mono Nerd Font;
-  font-size: 12pt;
-  font-weight: bold;
-  transition: all 0.15s ease-in-out;
+	font-family: JetBrains Mono Nerd Font;
+	font-size: 12pt;
+	font-weight: bold;
+	transition: all 0.15s ease-in-out;
 }
 
 /* Each Main bar module */
 #waybar.first #battery,
 #waybar.first #backlight,
 #waybar.first #clock,
-#waybar.first #cpu,
-#waybar.first #language,
-#waybar.first #memory.swap,
-#waybar.first #memory.ram,
-#waybar.first #submap,
 #waybar.first #pulseaudio,
 #waybar.first #temperature,
-#waybar.first #tray,
 #waybar.first #disk,
+#waybar.first #custom-system-stats,
+#waybar.first #network.info,
 #waybar.first #window {
 	padding-left: 8pt;
 	padding-right: 8pt;
-  margin-bottom: 3px;
-  background: transparent;
+	margin-bottom: 3px;
+	background: transparent;
 	color: @white;
-}
-
-#waybar.first #network.info {
-  padding-right: 10px;
-  padding-left: 10px;
-  color: @warning;
-}
-
-#waybar.first #network.info.wifi.normal,
-#waybar.first #network.info.ethernet {
-  color: @white;
-  padding-right: 15px;
-}
-
-#waybar.first #network.info.wifi {
-  color: @warning;
-  padding-right: 15px;
 }
 
 /* Each Main bar critical module */
 #waybar.first #workspaces button.urgent,
-#waybar.first #workspaces button.special, 
+#waybar.first #workspaces button.special,
 #waybar.first #memory.swap.critical,
 #waybar.first #memory.ram.critical,
 #waybar.first #cpu.critical,
 #waybar.first #temperature.critical,
+#waybar.first #network.disconnected,
+/* 未连接状态 */
+#waybar.first #network.wifi.weak,
 #waybar.first #battery.critical.discharging {
 	color: @white;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
 	animation-name: blink-critical-text;
 	animation-duration: 1s;
-  animation-timing-function: steps(15);
+	animation-timing-function: steps(15);
 }
 
-#waybar.first #submap.RESIZE {
-	color: @white;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-name: blink-modifier-text;
-	animation-duration: 1s;
-  animation-timing-function: steps(15);
-}
 
 /* Each Main bar warning */
 #waybar.first #pulseaudio.output.muted,
 #waybar.first #pulseaudio.input.source-muted,
-#waybar.first #battery.warning.discharging {
+#waybar.first #battery.warning.discharging,
+#waybar.first #network.disconnected,
+/* 未连接状态 */
+#waybar.first #network.wifi.weak {
 	color: @warning;
 }
 
@@ -126,17 +104,22 @@
 
 /* Default workspace settings */
 #waybar.first #workspaces button {
-  color: @darkgrey;
-  background: transparent;
-  font-size: 18px;
+	color: @darkgrey;
+	background: transparent;
+	font-size: 18px;
 	padding-left: 3pt;
 	padding-right: 2pt;
-  border-radius: 20px;
-  margin-bottom: 3px;
-  margin-top: 3px;
-  margin-left: 3px;
-  margin-right: 3px;
-  transition: 0.25s ease;
+	border-radius: 20px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-right: 3px;
+	transition: 0.25s ease;
+}
+
+#waybar.first #window {
+	background-color: @redius-bg;
+	border-radius: 10%/100%;
 }
 
 /* Inactive (on unfocused output) & Active (on focused output) */
@@ -155,36 +138,83 @@
 #waybar.first #custom-spacer2,
 #waybar.first #custom-spacer3 {
 	font-size: 12pt;
-	color: @darkgrey;
+	color: @white;
 	background: transparent;
+}
+
+#waybar.first #tray,
+#waybar.first #custom-playerctl {
+	padding-left: 8pt;
+	padding-right: 8pt;
+	margin-bottom: 3px;
+	color: @white;
+}
+
+#waybar.first #tray{
+	background: @redius-bg;
+	border-radius: 30%/100%;
 }
 
 /* Tooltip recolor */
 tooltip {
-  background: @indigo3;
-  border: 3px solid @indigo1;
-  border-radius: 10px;
+	background: @indigo3;
+	border: 3px solid @indigo1;
+	border-radius: 10px;
+	font-family: JetBrains Mono Nerd Font;
+	font-size: 12pt;
+	font-weight: bold;
+	transition: all 0.15s ease-in-out;
 }
 
-   /*------------- -*/
-  /* INDICATOR BAR */
- /*---------------*/
+/*------------- -*/
+/* INDICATOR BAR */
+/*---------------*/
 
 #waybar.second {
-  font-size: 2px;         /* This makes indicator thicker */
-  color: rgba(0,0,0,0);
-  background: @indigo1;
+	font-size: 2px;
+	/* This makes indicator thicker */
+	color: rgba(0, 0, 0, 0);
+	background: none;
 }
 
-/* For margins, use your monitor's h.resolution, */
-/* Or fraction resolution, eg. if scaling is 1.25 */
-/* 2880px / 1.25 = 2304px */
-#waybar.second #battery.critical.discharging {
-  margin-right: -2305px;  /* Try h.resolution +-1 */
-  background: @warning;
+#waybar.second #workspaces {
+	padding-bottom: 0px;
+	background-color: @redius-bg;
+	border-radius: 40%/100%;
 }
 
-#waybar.second #submap.RESIZE {
-  margin-left: -2305px;   /* Try h.resolution +-1 */
-  background: @resize;
+/* Each Main bar critical module */
+#waybar.second #workspaces button.urgent,
+#waybar.second #workspaces button.special {
+	color: @white;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-name: blink-critical-text;
+	animation-duration: 1s;
+	animation-timing-function: steps(15);
+}
+
+#waybar.second #workspaces button {
+	color: @white;
+	background: transparent;
+	font-size: 18px;
+	padding-left: 3pt;
+	padding-right: 3pt;
+	border-radius: 20px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-right: 3px;
+	transition: 0.25s ease;
+}
+
+/* Inactive (on unfocused output) & Active (on focused output) */
+#waybar.second #workspaces button.visible {
+	color: @white;
+	background: @indigo1;
+}
+
+/* Style when cursor is on the button */
+#waybar.second #workspaces button:hover {
+	color: @white;
 }
