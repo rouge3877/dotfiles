@@ -28,7 +28,7 @@
     // ---------------
 
     "modules-center": [
-      // "custom/spacer3",   // 自定义分隔符1
+      // "custom/spacer1",   // 自定义分隔符1
       // "hyprland/workspaces",  // Hyprland 工作区切换器
       "hyprland/window"   // 当前窗口标题
     ],
@@ -43,7 +43,9 @@
       "pulseaudio#input",   // 麦克风输入音量
       "pulseaudio#output", // 扬声器输出音量
       "battery",            // 电池状态
-      "clock"               // 时间与日期
+      "clock",               // 时间与日期
+      "custom/spacer1",   // 自定义分隔符2
+      "custom/wlogout_tool" // 自定义注销工具
     ],
 
     // ---------------------------
@@ -230,9 +232,16 @@
     // ========================
     // 自定义分隔符模块
     // ========================
-    "custom/spacer1": { "format": " |", "tooltip": false },
+    "custom/spacer1": { "format": "|", "tooltip": false },
     "custom/spacer2": { "format": " ",  "tooltip": false },  // 空格分隔
-    "custom/spacer3": { "format": "|",  "tooltip": false }   // 斜杠分隔
+    "custom/thin-vertical-bar": { "format": "|",  "tooltip": false },  // 空格分隔
+    "custom/wlogout_tool": {
+      "on-click": "wlogout",
+      // show arch icon
+      "format": " ",
+      "icon-size": 18,
+      "tooltip-format": "<span color='#f9e2af'>Logout</span>"
+    }
   },
 
   // ============================
@@ -256,7 +265,7 @@
       "disable-scroll-wraparound": true, // 禁用循环滚动
       "format": "{icon}",                // 仅显示图标
       "format-icons": {                 // 特殊工作区图标
-        "magic": "XD",            // 名为 "magic" 的工作区
+        "magic": "🥵",            // 名为 "magic" 的工作区
         "10": "󰊴 "                      // 工作区 10 的图标
       },
       "show-special": true              // 显示特殊工作区

@@ -62,10 +62,14 @@
 #waybar.first #disk,
 #waybar.first #custom-system-stats,
 #waybar.first #network.info,
+#waybar.first #custom-spacer1,
+#waybar.first #custom-spacer2,
+#waybar.first #custom-wlogout_tool,
 #waybar.first #window {
-	padding-left: 8pt;
-	padding-right: 8pt;
-	margin-bottom: 3px;
+	padding-left: 4pt;
+	padding-right: 4pt;
+	margin-bottom: 1px;
+	margin-top: 3px;
 	background: transparent;
 	color: @white;
 }
@@ -120,6 +124,10 @@
 #waybar.first #window {
 	background-color: @redius-bg;
 	border-radius: 10%/100%;
+	padding-left: 8pt;
+	padding-right: 8pt;
+	margin-bottom: 3px;
+	margin-top: 3px;
 }
 
 /* Inactive (on unfocused output) & Active (on focused output) */
@@ -146,7 +154,8 @@
 #waybar.first #custom-playerctl {
 	padding-left: 8pt;
 	padding-right: 8pt;
-	margin-bottom: 3px;
+	margin-bottom: 1px;
+	margin-top: 3px;
 	color: @white;
 }
 
