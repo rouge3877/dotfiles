@@ -19,6 +19,13 @@ conf() {
         echo "GRUB_THEME=/boot/grub/themes/minegrub/theme.txt" >> /etc/default/grub
     fi
 
+    # add mem_sleep_default=deep to the GRUB_CMDLINE_LINUX_DEFAULT line
+    if grep -q "GRUB_CMDLINE_LINUX_DEFAULT" /etc/default/grub; then
+        sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=\"\(.*\)\"|GRUB_CMDLINE_LINUX_DEFAULT=\"\1 mem_sleep_default=deep\"|" /etc/default/grub
+    else
+        echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash mem_sleep_default=deep\"" >> /etc/default/grub
+    fi
+
     # cat the /etc/default/grub file to check if the line is added or replaced
     # user should check and print y or n
     cat /etc/default/grub
@@ -41,3 +48,5 @@ fi
 
 conf
 
+# make grub
+grub-mkconfig -o /boot/grub/grub.cfg
