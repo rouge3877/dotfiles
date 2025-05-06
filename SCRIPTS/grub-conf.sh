@@ -21,7 +21,14 @@ conf() {
 
     # add mem_sleep_default=deep to the GRUB_CMDLINE_LINUX_DEFAULT line
     if grep -q "GRUB_CMDLINE_LINUX_DEFAULT" /etc/default/grub; then
-        sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=\"\(.*\)\"|GRUB_CMDLINE_LINUX_DEFAULT=\"\1 mem_sleep_default=deep\"|" /etc/default/grub
+        # check if the line already contains "mem_sleep_default=deep"
+        if grep -q "mem_sleep_default=deep" /etc/default/grub; then
+            # echo as red bold for warning
+            echo -e "\e[31;1mThe line already contains mem_sleep_default=deep\e[0m"
+        else
+            # replace the line with the new line
+            sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=\"\(.*\)\"|GRUB_CMDLINE_LINUX_DEFAULT=\"\1 mem_sleep_default=deep\"|" /etc/default/grub
+        fi
     else
         echo "GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash mem_sleep_default=deep\"" >> /etc/default/grub
     fi
