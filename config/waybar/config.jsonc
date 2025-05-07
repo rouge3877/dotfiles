@@ -19,6 +19,7 @@
     "modules-left": [
       "tray",             // 系统托盘图标
       "custom/spacer1",   // 自定义分隔符1
+      "custom/desktop-files", // 自定义桌面文件模块
       "custom/playerctl" // 媒体控制模块
     ],
 
@@ -45,6 +46,7 @@
       "battery",            // 电池状态
       "clock",               // 时间与日期
       "custom/spacer1",   // 自定义分隔符2
+      // "custom/spacer1",   // 自定义分隔符1
       "custom/wlogout_tool" // 自定义注销工具
     ],
 
@@ -241,6 +243,11 @@
       "format": " ",
       "icon-size": 18,
       "tooltip-format": "<span color='#f9e2af'>Logout</span>"
+    },
+    "custom/desktop-files": {
+        "format": "📁",
+        "on-click": "~/.config/waybar/desktop-files.sh",
+        "tooltip": false
     }
   },
 

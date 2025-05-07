@@ -65,6 +65,7 @@
 #waybar.first #custom-spacer1,
 #waybar.first #custom-spacer2,
 #waybar.first #custom-wlogout_tool,
+#waybar.first #custom-desktop-files,
 #waybar.first #window {
 	padding-left: 4pt;
 	padding-right: 4pt;
