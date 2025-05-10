@@ -64,6 +64,10 @@
         "Networking": [
             "nmap",
             "openssh",
+            "impala",
+            "networkmanager",
+            "network-manager-applet",
+            "nm-connection-editor",
             "net-tools"
         ],
         "GUI Applications": [
@@ -135,9 +139,11 @@
         "wechat-bin",
         "fcitx5-theme-wechat",
         "fcitx5-skin-fluentdark-git",
+        "networkmanager-dmenu-git",
         "google-chrome"
     ],
     "npm": [
+        "decktape",
         "gitmoji-cli"
     ]
 }
