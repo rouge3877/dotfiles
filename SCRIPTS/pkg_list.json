@@ -107,6 +107,7 @@
             "libnotify"
         ],
         "Fonts": [
+            "font-manager",
             "ttf-liberation",
             "adobe-source-han-sans-cn-fonts",
             "ttf-droid",
@@ -116,6 +117,8 @@
             "ttf-dejavu-nerd",
             "ttf-jetbrains-mono",
             "ttf-jetbrains-mono-nerd",
+            "ttf-maplemono",
+            "ttf-maplemono-cn",
             "ttf-blobmoji",
             "otf-font-awesome",
             "ttf-nerd-fonts-symbols"
