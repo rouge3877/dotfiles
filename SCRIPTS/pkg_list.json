@@ -143,6 +143,8 @@
         "fcitx5-theme-wechat",
         "fcitx5-skin-fluentdark-git",
         "networkmanager-dmenu-git",
+        "md-tui",
+        "markserv",
         "google-chrome"
     ],
     "npm": [
