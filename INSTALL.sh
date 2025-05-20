@@ -60,3 +60,8 @@ done
 echo "Done!"
 echo "All the old dotfiles are backed up in $DOTFILES_BACKUP"
 echo "Have fun with your new dotfiles!"
+echo "++++++++++++++++++++++++++++++++++++++++++++++"
+echo "You can also do:
+    install flags and *.desktop in repalces/
+    config grub and network in SCRIPTS/grub-conf.sh and SCRIPTS/network-conf.sh"
+echo "++++++++++++++++++++++++++++++++++++++++++++++"
