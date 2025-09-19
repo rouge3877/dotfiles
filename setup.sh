@@ -173,7 +173,7 @@ main() {
     print_info "Setup completed!"
     if [[ $error_count -gt 0 ]]; then
         print_error "$error_count module(s) failed to process:";
-        for err in "${error_list[@]}"; doparse_dep
+        for err in "${error_list[@]}"; do
             print_error " - $err"
         done
         exit 1;
@@ -194,3 +194,4 @@ show_usage() {
 }
 
 main "$@"
+

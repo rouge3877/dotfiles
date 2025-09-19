@@ -294,40 +294,39 @@ main() {
     check_privileges "$@"
 
     local packages_to_setup=()
-    local global_install=true
+    local global_install="true"
     for arg in "$@"; do
         if [[ "$arg" == "-g" || "$arg" == "--global" ]]; then
-            global_install=false
+            global_install="false"
             continue
         else
-            global_install=false
+            global_install="false"
             packages_to_setup+=("$arg")
         fi
     done
-        
+
     if [ ${#packages_to_setup[@]} -eq 0 ]; then
         cli_list=( $(find "$CLI_DIR" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;) )
         gui_list=( $(find "$GUI_DIR" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;) )
         for i in "${!cli_list[@]}"; do cli_list[i]="cli/${cli_list[i]}"; done
         for i in "${!gui_list[@]}"; do gui_list[i]="gui/${gui_list[i]}"; done
-        
+
         packages_to_setup+=( "${cli_list[@]}" )
         packages_to_setup+=( "${gui_list[@]}" )
-        
+
     fi
 
-    for pkg in "${packages_to_setup[@]}"; do
-        local yaml_file="$DOTFILE_ROOT/$pkg/dependency.yaml"
-        if [ -f "$yaml_file" ]; then
-            echo -e "\n${BLUE}▷ Processing $pkg dependencies...${NC}"
-            parse_dep "$yaml_file"
-        else
-            echo -e "\n${YELLOW}➜ No dependency file found for $pkg, skipping...${NC}"
-        fi
-    done
+    if [ "$global_install" == "false" ]; then
+        for pkg in "${packages_to_setup[@]}"; do
+            local yaml_file="$DOTFILE_ROOT/$pkg/dependency.yaml"
+            if [ -f "$yaml_file" ]; then
+                echo -e "\n${BLUE}▷ Processing $pkg dependencies...${NC}"
+                parse_dep "$yaml_file"
+            else
+                echo -e "\n${YELLOW}➜ No dependency file found for $pkg, skipping...${NC}"
+            fi
+        done
 
-    
-    if [ "$global_install" = false ]; then
         echo -e "\n${BLUE}▷ Skipping global package installation as per user request.${NC}"
         exit 0
     fi
