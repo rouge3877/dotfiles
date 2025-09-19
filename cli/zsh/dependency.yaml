@@ -1,5 +1,6 @@
 pkg:
   - zsh
+  - eza
   - fzf
   - neofetch
   - starship
