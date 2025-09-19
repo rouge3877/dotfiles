@@ -1,3 +1,9 @@
+#######################################################
+# ~/.gitconfig - Git configuration file
+# Author: Rouge Lin
+# This is a part of my dotfiles
+#######################################################
+
 [user]
 	name = Yuxuan Li
 	email = rouge_3877@outlook.com
