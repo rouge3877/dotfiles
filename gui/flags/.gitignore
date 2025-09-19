@@ -1,0 +1,3 @@
+dot/.config/kitty/*
+!dot/.config/kitty/kitty.conf
+!dot/.config/kitty/themes

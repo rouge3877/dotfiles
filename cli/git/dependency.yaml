@@ -1,0 +1,8 @@
+pkg:
+  - git
+  - vim
+  - lolcat
+  - gource
+
+npm:
+  - gitmoji-cli

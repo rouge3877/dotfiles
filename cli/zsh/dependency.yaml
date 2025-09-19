@@ -1,0 +1,13 @@
+pkg:
+  - zsh
+  - fzf
+  - neofetch
+  - starship
+  - git
+  - unzip
+  - zip
+  - tar
+  - gzip
+  - bzip2
+  - unrar
+  - p7zip

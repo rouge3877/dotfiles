@@ -1,0 +1,3 @@
+# Ignore all machine-specific local override files
+*.local
+99-*

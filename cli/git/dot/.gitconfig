@@ -1,0 +1,42 @@
+[user]
+	name = Yuxuan Li
+	email = rouge_3877@outlook.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = vim
+    autocrlf = input
+
+[color]
+	ui = true
+
+[diff]
+    tool = vimdiff
+
+[difftool "vimdiff"]
+    cmd = vim -d \"$LOCAL\" \"$REMOTE\"
+
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
+[alias]
+    df = difftool --no-prompt
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    undo = reset HEAD~1 --mixed
+    st = status --short
+    stat = diff --stat
+
+    # Show ASCII art log
+    # Dependency: lolcat
+    artlog = !git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | lolcat
+
+    # Show Git meteor chart
+    # Dependency: gource
+    meteor = !gource --log-format git --stop-at-end --title \"Project Evolution\" --user-scale 2.0
+
+    # Use gitmoji to add emojis when committing
+    # Dependency: gitmoji-cli
+    cm = !gitmoji -c

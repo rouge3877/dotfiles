@@ -1,0 +1,163 @@
+{
+    "pacman": {
+        "Core Development": [
+            "gcc",
+            "gdb",
+            "make",
+            "cmake",
+            "llvm",
+            "clang",
+            "base-devel",
+            "ctags"
+        ],
+        "Python Environment": [
+            "python",
+            "python-pip"
+        ],
+        "Bluetooth": [
+            "bluez",
+            "bluez-utils",
+            "bluetui"
+        ],
+        "Node.js Environment": [
+            "nodejs",
+            "npm"
+        ],
+        "Development Libraries": [
+            "cjson",
+            "jsoncpp",
+            "curl",
+            "openssl",
+            "ncurses"
+        ],
+        "System Tools": [
+            "htop",
+            "neofetch",
+            "wget",
+            "stow",
+            "unzip",
+            "nautilus"
+        ],
+        "GIT Tools": [
+            "lolcat",
+            "gource",
+            "git"
+        ],
+        "Shell and CLI": [
+            "zsh",
+            "tmux",
+            "jq",
+            "gvim",
+            "bat",
+            "fzf",
+            "trash-cli"
+        ],
+        "Dev Tools": [
+            "valgrind",
+            "strace",
+            "ltrace",
+            "gdb"
+        ],
+        "Debugging Tools": [
+            "valgrind",
+            "strace",
+            "ltrace"
+        ],
+        "Documentation": [
+            "man-db",
+            "man-pages",
+            "tldr",
+            "pandoc",
+            "glow"
+        ],
+        "Networking": [
+            "nmap",
+            "openssh",
+            "impala",
+            "networkmanager",
+            "network-manager-applet",
+            "nm-connection-editor",
+            "net-tools"
+        ],
+        "GUI Applications": [
+            "wireshark-qt",
+            "zen-browser"
+        ],
+        "Vedio and Audio": [
+            "mpv",
+            "mpv-mpris",
+            "mpv-osc-modernx-git",
+            "yt-dlp",
+            "ffmpeg",
+            "pipewire",
+            "playerctl",
+            "obs-studio"
+        ],
+        "Hyprland": [
+            "hyprland",
+            "hyprpaper",
+            "hyprland-qt-support",
+            "hyprpolkitagent",
+            "hypridle",
+            "hyprlock",
+            "hyprcursor",
+            "wl-clipboard",
+            "wlogout",
+            "cliphist",
+            "grim",
+            "slurp",
+            "mupdf",
+            "brightnessctl",
+            "qt5-wayland",
+            "qt6-wayland",
+            "xdg-desktop-portal-hyprland",
+            "waybar",
+            "dunst",
+            "libnotify"
+        ],
+        "Fonts": [
+            "font-manager",
+            "ttf-liberation",
+            "adobe-source-han-sans-cn-fonts",
+            "ttf-droid",
+            "ttf-hack",
+            "ttf-hack-nerd",
+            "ttf-dejavu",
+            "ttf-dejavu-nerd",
+            "ttf-jetbrains-mono",
+            "ttf-jetbrains-mono-nerd",
+            "ttf-maplemono",
+            "ttf-maplemono-cn",
+            "ttf-blobmoji",
+            "otf-font-awesome",
+            "ttf-nerd-fonts-symbols"
+        ],
+        "Input Methods": [
+            "fcitx5",
+            "fcitx5-configtool",
+            "fcitx5-chinese-addons"
+        ],
+        "Miscellaneous": [
+            "cmatrix",
+            "sl"
+        ]
+    },
+    "aur": [
+        "clash-verge-rev",
+        "rose-pine-hyprcursor",
+        "hyprsysteminfo",
+        "aur/visual-studio-code-bin",
+        "linuxqq",
+        "wechat-bin",
+        "fcitx5-theme-wechat",
+        "fcitx5-skin-fluentdark-git",
+        "networkmanager-dmenu-git",
+        "md-tui",
+        "markserv",
+        "aur/google-chrome"
+    ],
+    "npm": [
+        "decktape",
+        "gitmoji-cli"
+    ]
+}

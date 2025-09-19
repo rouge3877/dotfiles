@@ -1,0 +1,4 @@
+dot/.ssh/*
+!dot/.ssh/config
+!dot/.ssh/config.d/
+!dot/.ssh/config.d/*

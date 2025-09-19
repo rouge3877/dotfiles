@@ -1,0 +1,5 @@
+pkg:
+  - vim
+  - fzf
+  - git
+  - ripgrep

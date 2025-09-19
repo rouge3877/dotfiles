@@ -1,0 +1,234 @@
+@define-color darkgrey #606060;
+@define-color white #FFFFFF;
+@define-color black rgba(0, 0, 0, 1);
+@define-color warning #FF7070;
+@define-color indigo1 rgba(0, 0, 0, 1);
+@define-color indigo2 rgba(9, 7, 31, 0.5);
+@define-color indigo3 rgba(9, 7, 31, 1.0);
+@define-color resize #10aa70;
+@define-color redius-bg rgba(169, 169, 169, 0.5);
+
+/* Reset all styles */
+* {
+	border: none;
+	border-radius: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+/*----------*/
+/* MAIN BAR */
+/*----------*/
+
+/* Keyframes for 1st bar criticals */
+@keyframes blink-critical-text {
+	to {
+		color: @warning;
+	}
+}
+
+/* Keyframes for 1st bar modifiers */
+@keyframes blink-modifier-text {
+	to {
+		color: @resize;
+	}
+}
+
+/* The Main bar */
+#waybar.first {
+	background: @black;
+	color: @white;
+	font-family: JetBrains Mono Nerd Font;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+#waybar.first button {
+	font-family: JetBrains Mono Nerd Font;
+	font-size: 12pt;
+	font-weight: bold;
+	transition: all 0.15s ease-in-out;
+}
+
+/* Each Main bar module */
+#waybar.first #battery,
+#waybar.first #backlight,
+#waybar.first #clock,
+#waybar.first #pulseaudio,
+#waybar.first #temperature,
+#waybar.first #disk,
+#waybar.first #custom-system-stats,
+#waybar.first #network.info,
+#waybar.first #custom-spacer1,
+#waybar.first #custom-spacer2,
+#waybar.first #custom-wlogout_tool,
+#waybar.first #custom-desktop-files,
+#waybar.first #window {
+	padding-left: 4pt;
+	padding-right: 4pt;
+	margin-bottom: 1px;
+	margin-top: 3px;
+	background: transparent;
+	color: @white;
+}
+
+/* Each Main bar critical module */
+#waybar.first #workspaces button.urgent,
+#waybar.first #workspaces button.special,
+#waybar.first #memory.swap.critical,
+#waybar.first #memory.ram.critical,
+#waybar.first #cpu.critical,
+#waybar.first #temperature.critical,
+#waybar.first #network.disconnected,
+/* 未连接状态 */
+#waybar.first #network.wifi.weak,
+#waybar.first #battery.critical.discharging {
+	color: @white;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-name: blink-critical-text;
+	animation-duration: 1s;
+	animation-timing-function: steps(15);
+}
+
+
+/* Each Main bar warning */
+#waybar.first #pulseaudio.output.muted,
+#waybar.first #pulseaudio.input.source-muted,
+#waybar.first #battery.warning.discharging,
+#waybar.first #network.disconnected,
+/* 未连接状态 */
+#waybar.first #network.wifi.weak {
+	color: @warning;
+}
+
+/* And now modules themselves in their respective order */
+
+/* Default workspace settings */
+#waybar.first #workspaces button {
+	color: @darkgrey;
+	background: transparent;
+	font-size: 18px;
+	padding-left: 3pt;
+	padding-right: 2pt;
+	border-radius: 20px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-right: 3px;
+	transition: 0.25s ease;
+}
+
+#waybar.first #window {
+	background-color: @redius-bg;
+	border-radius: 10%/100%;
+	padding-left: 8pt;
+	padding-right: 8pt;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+
+/* Inactive (on unfocused output) & Active (on focused output) */
+#waybar.first #workspaces button.visible {
+	color: @white;
+	background: @indigo1;
+}
+
+/* Style when cursor is on the button */
+#waybar.first #workspaces button:hover {
+	color: @white;
+}
+
+/* Custom slashes as spacers */
+#waybar.first #custom-spacer1,
+#waybar.first #custom-spacer2,
+#waybar.first #custom-spacer3 {
+	font-size: 12pt;
+	color: @white;
+	background: transparent;
+}
+
+#waybar.first #tray,
+#waybar.first #custom-playerctl {
+	padding-left: 8pt;
+	padding-right: 8pt;
+	margin-bottom: 1px;
+	margin-top: 3px;
+	color: @white;
+}
+
+#waybar.first #tray {
+	background: @redius-bg;
+	border-radius: 30%/100%;
+}
+
+/* Tooltip recolor */
+tooltip {
+	background: @indigo3;
+	border: 3px solid @indigo1;
+	border-radius: 10px;
+	font-family: JetBrains Mono Nerd Font;
+	font-size: 12pt;
+	font-weight: bold;
+	transition: all 0.15s ease-in-out;
+}
+
+/*------------- -*/
+/* INDICATOR BAR */
+/*---------------*/
+
+#waybar.second {
+	font-size: 2px;
+	/* This makes indicator thicker */
+	color: rgba(0, 0, 0, 0);
+	background: none;
+	font-family: JetBrains Mono Nerd Font;
+	font-weight: bold;
+	padding: 7px;
+	margin: 7px;
+}
+
+#waybar.second #workspaces {
+	padding-bottom: 0px;
+	background-color: @redius-bg;
+	border-radius: 40%/100%;
+}
+
+/* Each Main bar critical module */
+#waybar.second #workspaces button.urgent,
+#waybar.second #workspaces button.special {
+	color: @white;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-name: blink-critical-text;
+	animation-duration: 1s;
+	animation-timing-function: steps(15);
+}
+
+#waybar.second #workspaces button {
+	color: @white;
+	background: transparent;
+	font-size: 18px;
+	padding-left: 3pt;
+	padding-right: 3pt;
+	border-radius: 20px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-right: 3px;
+	transition: 0.25s ease;
+}
+
+/* Inactive (on unfocused output) & Active (on focused output) */
+#waybar.second #workspaces button.visible {
+	color: @white;
+	background: @indigo1;
+}
+
+/* Style when cursor is on the button */
+#waybar.second #workspaces button:hover {
+	color: @white;
+}

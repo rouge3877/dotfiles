@@ -1,0 +1,11 @@
+pkg:
+  - mpv
+  - ffmpeg
+  - youtube-dl
+  - mpv-mpris
+  - mpv-osc-modernx-git
+  - yt-dlp
+  - ffmpeg
+  - pipewire
+  - playerctl
+  - obs-studio

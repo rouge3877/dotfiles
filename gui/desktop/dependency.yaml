@@ -1,0 +1,21 @@
+pkg:
+  - hyprland
+  - hyprpaper
+  - hyprland-qt-support
+  - hyprpolkitagent
+  - hypridle
+  - hyprlock
+  - hyprcursor
+  - wl-clipboard
+  - wlogout
+  - cliphist
+  - grim
+  - slurp
+  - mupdf
+  - brightnessctl
+  - qt5-wayland
+  - qt6-wayland
+  - xdg-desktop-portal-hyprland
+  - waybar
+  - dunst
+  - libnotify
