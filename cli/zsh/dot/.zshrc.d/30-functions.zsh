@@ -54,6 +54,34 @@ extract() {
 
 ########### Proxy management ###########
 proxy_on() {
+
+    if [[ -n $PROXY_SERVER && -n $PROXY_PORT ]]; then
+        echo "Using custom proxy server and port: $PROXY_SERVER:$PROXY_PORT"
+        export https_proxy=http://$PROXY_SERVER:$PROXY_PORT;
+        export http_proxy=http://$PROXY_SERVER:$PROXY_PORT;
+        export all_proxy=socks5://$PROXY_SERVER:$PROXY_PORT;
+        echo "Proxy on"
+        return
+    fi
+
+    if [[ -n $PROXY_SERVER ]]; then
+        echo "Using custom proxy server: $PROXY_SERVER:7897"
+        export https_proxy=http://$PROXY_SERVER:7897;
+        export http_proxy=http://$PROXY_SERVER:7897;
+        export all_proxy=socks5://$PROXY_SERVER:7897;
+        echo "Proxy on"
+        return
+    fi
+
+    if [[ -n $PROXY_PORT ]]; then
+        echo "Using custom proxy port: $PROXY_PORT"
+        export https_proxy=http://127.0.0.1:$PROXY_PORT;
+        export http_proxy=http://127.0.0.1:$PROXY_PORT;
+        export all_proxy=socks5://127.0.0.1:$PROXY_PORT;
+        echo "Proxy on"
+        return
+    fi
+
     export https_proxy=http://127.0.0.1:7897;
     export http_proxy=http://127.0.0.1:7897;
     export all_proxy=socks5://127.0.0.1:7897;
