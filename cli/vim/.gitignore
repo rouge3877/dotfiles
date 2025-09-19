@@ -1,3 +1,5 @@
 dot/.vim/pack/
 dot/.vim/plugged/
 dot/.vim/autoload/
+
+99-local*
