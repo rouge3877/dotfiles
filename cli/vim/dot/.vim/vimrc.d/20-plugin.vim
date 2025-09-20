@@ -40,9 +40,10 @@ Plug 'github/copilot.vim' " GitHub Copilot integration
 Plug 'preservim/tagbar' " Displays tags in a window, ordered by class/function
 
 " LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
-Plug 'sheerun/vim-polyglot' " Language packs
-Plug 'dense-analysis/ale' " Asynchronous Lint Engine
+" For lightweight vim, disable this plugins
+" Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine
+" Plug 'sheerun/vim-polyglot' " Language packs
+" Plug 'dense-analysis/ale' " Asynchronous Lint Engine
 
 Plug 'junegunn/goyo.vim'
 
