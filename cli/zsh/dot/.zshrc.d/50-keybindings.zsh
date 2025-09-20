@@ -8,8 +8,14 @@
 # Example: bindkey '^[[A' history-substring-search-up
 #######################################################
 
-# 如果你坚持要用 Ctrl+J 接受自动建议，就把下面这行取消注释
-# bindkey '^J' autosuggest-accept
 
 # Vim Mode
 bindkey -v
+
+# alt + l to accept autosuggestion
+bindkey '^[l' autosuggest-accept
+
+# alt + j/k to navigate through history
+bindkey '^[j' history-substring-search-down
+bindkey '^[k' history-substring-search-up
+
