@@ -1,0 +1,10 @@
+pkg:
+  - nvim
+  - fzf
+  - npm
+  - nodejs
+  - git
+  - ripgrep
+  - tar
+  - awk
+  - 
