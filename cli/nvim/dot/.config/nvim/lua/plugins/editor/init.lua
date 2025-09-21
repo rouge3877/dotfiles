@@ -4,5 +4,4 @@ return {
   { import = "plugins.editor.nvim-tree" },
   { import = "plugins.editor.treesj" },
   { import = "plugins.editor.dial" },
-  { import = "plugins.editor.neorg" },
 }
