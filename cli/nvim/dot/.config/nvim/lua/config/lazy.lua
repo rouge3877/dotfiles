@@ -29,7 +29,8 @@ require("lazy").setup({
     -- I want to import only init.lua in each subfolder
     -- and the init.lua files will import the other files in the same folder
     { import = "plugins.appearance.init" },
-    { import = "plugins.editor.init" },
+    { import = "plugins.finder.init" },
+    { import = "plugins.language.init" },
     { import = "plugins.utils.init" },
     { import = "plugins.misc.init" },
     { import = "plugins.theme.init" },
